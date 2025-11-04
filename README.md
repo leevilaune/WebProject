@@ -1,4 +1,6 @@
-# WebProject
+# Restaurant Webapp
+
+## Database schema
 
 ```mermaid
 erDiagram
