@@ -47,9 +47,22 @@ erDiagram
         string description
     }
 
+    ALLERGEN {
+        int id PK
+        string name
+        string icon_url
+    }
+
+    PRODUCT_ALLERGEN {
+        int product_id PK
+        int allergen_id PK
+    }
+
     USER ||--o{ ORDER : "user_id => user_id"
     ORDER ||--o{ ORDERED_FOOD : "order_number => order_number"
     PRODUCT ||--o{ ORDERED_FOOD : "product_id => product_id"
     PRODUCT ||--o{ PRODUCT_OPTION : "product_id => product_id"
     OPTION ||--o{ PRODUCT_OPTION : "option_id => option_id"
+    PRODUCT ||--o{ PRODUCT_ALLERGEN : "product_id → product_id"
+    ALLERGEN ||--o{ PRODUCT_ALLERGEN : "allergen_id → allergen_id"
 ```
