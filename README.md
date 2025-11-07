@@ -29,11 +29,13 @@ erDiagram
 
     PRODUCT {
         int product_id PK
+        string name
         float price
         string description
         string image_url
         string category
         string allergen
+        boolean default
     }
 
     PRODUCT_OPTION {
