@@ -12,7 +12,8 @@ Content-Type: application/json
   "description": "Classic burger with cheese",
   "image_url": "burger.jpg",
   "category": "main",
-  "allergen": "milk",
+  "option_ids": [1,2,4],
+  "allergen_ids": [1,2],
   "default_product": true
 }
 

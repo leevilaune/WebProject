@@ -64,9 +64,9 @@ CREATE TABLE product_option (
 );
 
 CREATE TABLE allergen (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    icon_url VARCHAR(255)
+    allergen_id INT AUTO_INCREMENT PRIMARY KEY,
+    allergen_name VARCHAR(100),
+    allergen_icon_url VARCHAR(255)
 );
 
 CREATE TABLE product_allergen (
@@ -101,7 +101,7 @@ INSERT INTO product_option (product_id, option_id) VALUES
 (2, 3),
 (4, 4);
 
-INSERT INTO allergen (name, icon_url) VALUES
+INSERT INTO allergen (allergen_name, allergen_icon_url) VALUES
 ('dairy', '/icons/dairy.png'),
 ('gluten', '/icons/gluten.png'),
 ('egg', '/icons/egg.png');
@@ -124,3 +124,8 @@ INSERT INTO ordered_food (order_number, product_id) VALUES
 (1, 1),
 (1, 3),
 (2, 2);
+
+CREATE USER IF NOT EXISTS 'appuser'@'%' IDENTIFIED BY 'StrongPasswordHere';
+
+GRANT ALL PRIVILEGES ON restaurant_db.* TO 'appuser'@'%' IDENTIFIED BY 'StrongPasswordHere';
+FLUSH PRIVILEGES;
