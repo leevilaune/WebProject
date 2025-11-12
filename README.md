@@ -68,3 +68,8 @@ erDiagram
     PRODUCT ||--o{ PRODUCT_ALLERGEN : "product_id → product_id"
     ALLERGEN ||--o{ PRODUCT_ALLERGEN : "allergen_id → allergen_id"
 ```
+
+## UI Wireframe mockup
+
+<img width="5712" height="2947" alt="image" src="https://github.com/user-attachments/assets/40d4b794-d718-408c-bf11-db52f443b5db" />
+
