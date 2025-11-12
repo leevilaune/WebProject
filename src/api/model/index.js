@@ -1,2 +1,4 @@
-import User from "./user-model";
+import user from "./user-model";
+import product from "./product-model";
 
+import sequelize from "../config/database";

@@ -1,0 +1,30 @@
+### Get all products
+GET http://localhost:3000/api/v1/product/all
+Accept: application/json
+
+### Add a new product
+POST http://localhost:3000/api/v1/product/add
+Content-Type: application/json
+
+{
+  "name": "Cheeseburger",
+  "price": 8.99,
+  "description": "Classic burger with cheese",
+  "image_url": "burger.jpg",
+  "category": "main",
+  "allergen": "milk",
+  "default_product": true
+}
+
+
+### Update a product
+PUT http://localhost:3000/api/v1/product/1
+Content-Type: application/json
+
+{
+  "price": 9.99
+}
+
+
+### Delete a product
+DELETE http://localhost:3000/api/v1/product/1

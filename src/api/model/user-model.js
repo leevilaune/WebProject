@@ -1,11 +1,12 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-const User = sequelize.define("user", {
+const user = sequelize.define("user", {
     user_id: {
         'type': DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false,
     },
     role: {
         'type': DataTypes.STRING,
@@ -35,4 +36,4 @@ const User = sequelize.define("user", {
     }
 },  {tableName: "user"});
 
-export default User;
+export default user;
