@@ -1,14 +1,15 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import user from "./user-model.js";
 
-const product = sequelize.define("product",{
-    product_id: {
+const order = sequelize.define("order", {
+    order_number: {
         'type': DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
     },
-    name: {
+    delivery_address:{
         'type': DataTypes.STRING,
         allowNull: false,
     },
@@ -16,22 +17,18 @@ const product = sequelize.define("product",{
         'type': DataTypes.FLOAT,
         allowNull: false,
     },
-    description: {
-        'type': DataTypes.TEXT,
-        allowNull: true,
-    },
-    image_url: {
-        'type': DataTypes.STRING,
-        allowNull: true,
-    },
-    category: {
-        'type': DataTypes.STRING,
+    timestamp: {
+        'type': DataTypes.BIGINT,
         allowNull: false,
     },
-    default_product: {
-        'type': DataTypes.BOOLEAN,
+    user_id: {
+        'type': DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: user,
+            key: 'user_id',
+        }
     }
-}, {tableName: "product"});
+},{tableName: "order"});
 
-export default product;
+export default order;
