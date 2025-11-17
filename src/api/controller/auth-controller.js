@@ -5,9 +5,10 @@ import "dotenv/config";
 
 const postLogin = async (req, res, next) => {
     console.log("postLogin", req.body);
-    const userData = user.findAll({
+    const userData = await user.findOne({
         where: { username: req.body.username },
-    })[0];
+    });
+    console.log(userData);
     if (!userData) {
         const error = new Error("User not found");
         error.status = 404;
@@ -36,10 +37,10 @@ const postLogin = async (req, res, next) => {
     res.json({ user: userWithNoPassword, token });
 };
 
-const getMe = async (req, res,next) => {
+const getMe = async (req, res, next) => {
     console.log("getMe", res.locals.user);
     if (res.locals.user) {
-        res.json({ message: "token ok", user: res.userWithNoPassword });
+        res.json({ message: "token ok", user: res.locals.user });
     } else {
         const error = new Error("Not authenticated, please login");
         error.status = 401;

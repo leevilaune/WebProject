@@ -33,6 +33,11 @@ const getAllProducts = async (req, res, next) => {
 };
 
 const addProduct = async (req, res, next) => {
+    if(res.locals.user.role != "admin"){
+        const error = new Error("No access");
+        error.status = 403;
+        next(error);
+    }
     const {
         name,
         price,
