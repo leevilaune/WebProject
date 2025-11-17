@@ -17,6 +17,21 @@ Content-Type: application/json
   "default_product": true
 }
 
+### broken add a new product
+POST http://localhost:3000/api/v1/product/add
+Content-Type: application/json
+
+{
+  "product_name": "Cheeseburger",
+  "product_price": 8.99,
+  "description": "Classic burger with cheese",
+  "image_url": "burger.jpg",
+  "category": "main",
+  "option_ids": [1,2,4],
+  "allergen_ids": [1,2],
+  "default_product": true
+}
+
 
 ### Update a product (not implemented)
 PUT http://localhost:3000/api/v1/product/1
@@ -29,3 +44,21 @@ Content-Type: application/json
 
 ### Delete a product (not implemented)
 DELETE http://localhost:3000/api/v1/product/1
+
+### Post login
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "pass123"
+}
+
+### Get me
+GET http://localhost:3000/api/v1/auth/me
+Accept: application/json
+
+### Get me with invalid token
+GET http://localhost:3000/api/v1/auth/me
+Accept: application/json
+Authorization: Bearer invalid-token
