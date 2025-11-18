@@ -73,3 +73,15 @@ erDiagram
 
 <img width="5712" height="2947" alt="image" src="https://github.com/user-attachments/assets/40d4b794-d718-408c-bf11-db52f443b5db" />
 
+## Deployment
+
+API is deployed in https://test.onesnzeroes.dev which is inaccessible in eduroam/metropolia network
+
+Instructions for deployment below
+
+Source [`init-db.sql`](https://github.com/leevilaune/WebProject/blob/main/sql-scripts/init-db.sql)
+Run `npm install`
+Run `npm run start`
+Optional:
+Source [`insert-mock-data.sql`](https://github.com/leevilaune/WebProject/blob/main/sql-scripts/insert-mock-data.sql)
+For mock data
