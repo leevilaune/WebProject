@@ -10,9 +10,9 @@
         "nodemon": "^3.1.10",
         "sequelize": "^6.37.7"
     },
-    "name": "webproject",
+    "name": "restaurant-api",
     "version": "1.0.0",
-    "description": "```mermaid erDiagram     USER {         int user_id PK         string type         string username         string password         string email         string phone_number         string address     }",
+    "description": "API for a restaurant webapp ",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
