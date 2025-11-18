@@ -80,8 +80,13 @@ API is deployed in https://test.onesnzeroes.dev which is inaccessible in eduroam
 Instructions for deployment below
 
 Source [`init-db.sql`](https://github.com/leevilaune/WebProject/blob/main/sql-scripts/init-db.sql)
+
 Run `npm install`
+
 Run `npm run start`
+
 Optional:
+
 Source [`insert-mock-data.sql`](https://github.com/leevilaune/WebProject/blob/main/sql-scripts/insert-mock-data.sql)
+
 For mock data
