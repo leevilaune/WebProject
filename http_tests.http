@@ -1,5 +1,6 @@
-@baseUrl = https://test.onesnzeroes.dev/api/v1
-
+//@baseUrl = https://test.onesnzeroes.dev/api/v1
+@baseUrl = http://localhost:3000/api/v1
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2Mzk5MjAxMiwiZXhwIjoxNzY0MDc4NDEyfQ.4lghtry1EFRnUR-_eoQgGtdSQsRF1I0va2Zkird5uIc
 ### Get all products
 GET {{baseUrl}}/product/all
 Accept: application/json
@@ -7,6 +8,7 @@ Accept: application/json
 ### Add a new product
 POST {{baseUrl}}/product/add
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "Cheeseburger",
@@ -30,12 +32,11 @@ Content-Type: application/json
   "image_url": "burger.jpg",
   "category": "main",
   "option_ids": [1,2,4],
-  "allergen_ids": [1,2],
-  "default_product": true
+  "allergen_ids": [1,2]
 }
 
 ### Update a product (not implemented)
-PUT {{baseUrl}}/product/1
+PUT {{baseUrl}}/product/6
 Content-Type: application/json
 
 {
@@ -57,25 +58,29 @@ Content-Type: application/json
 ### Get me
 GET {{baseUrl}}/auth/me
 Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2Mzk5MTI5OSwiZXhwIjoxNzY0MDc3Njk5fQ.1VGdTnn1Jl7DoXljv816Eo8VmQtxJO_S4QePrg6EG98 
+
 
 ### Get me with invalid token
 GET {{baseUrl}}/auth/me
 Accept: application/json
+Authorization: Bearer {{token}}
+
 
 ### Get me with valid token
 GET {{baseUrl}}/auth/me
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2MzM5MDI0MSwiZXhwIjoxNzYzNDc2NjQxfQ.TePQ7UWQVfiJ9N_RRoPMWbtOoFm0gbrUU-n2oJq7vMQ
+Authorization: Bearer {{token}}
 
 ### Get user by id
 GET {{baseUrl}}/user/4
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2MzM5MDI0MSwiZXhwIjoxNzYzNDc2NjQxfQ.TePQ7UWQVfiJ9N_RRoPMWbtOoFm0gbrUU-n2oJq7vMQ
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ### Get all users
 GET {{baseUrl}}/user/all
 Accept: application/json
-Authorization: Bearer totallyvalid69token
+Authorization: Bearer {{token}}
 
 ### Post user
 POST {{baseUrl}}/user/register
@@ -97,4 +102,22 @@ Accept: application/json
 {
   "username": "illorder",
   "password": "fuckme?"
+}
+
+### Get orders
+GET {{baseUrl}}/order/all
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Post order
+POST {{baseUrl}}/order
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "price": 8.99,
+  "delivery_address":"delivery address",
+  "user_id": 4,
+  "product_ids": [6]
 }

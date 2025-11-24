@@ -33,10 +33,9 @@ const getAllProducts = async (req, res, next) => {
 };
 
 const addProduct = async (req, res, next) => {
-    if(res.locals.user.role != "admin"){
-        const error = new Error("No access");
-        error.status = 403;
-        next(error);
+    let default_product = false;
+    if(req.user.role == "admin"){
+        default_product = true;
     }
     const {
         name,
@@ -46,7 +45,6 @@ const addProduct = async (req, res, next) => {
         description,
         image_url,
         allergen_ids,
-        default_product,
     } = req.body;
     try {
         const newProduct = await product.create({

@@ -2,14 +2,16 @@ import bcrypt from "bcrypt";
 import { user } from "../model/index.js";
 
 const findAllUsers = async (req, res, next) => {
-    if (req.locals.user.role != "admin") {
+    if (req.user.role != "admin") {
         const error = new Error("Forbidden");
         error.status = 403;
         next(error);
         return;
     }
     try {
-        const users = await user.findAll({ attributes: { exclude: ["password"] } });
+        const users = await user.findAll({
+            attributes: { exclude: ["password"] },
+        });
         if (users) {
             res.json(users);
         }
@@ -19,13 +21,13 @@ const findAllUsers = async (req, res, next) => {
 };
 
 const getUserById = async (req, res, next) => {
-    if (req.locals.user.role != "admin" || req.locals.user.id != req.id) {
+    if (req.user.role !== "admin" && req.user.user_id !== Number(req.params.id)) {
         const error = new Error("Forbidden");
         error.status = 403;
         next(error);
         return;
     }
-    const userData = await user.findByPk(req.id, {
+    const userData = await user.findByPk(req.params.id, {
         attributes: { exclude: ["password"] },
     });
     if (!userData) {
@@ -39,13 +41,12 @@ const getUserById = async (req, res, next) => {
 const addUser = async (req, res, next) => {
     console.log(req.body);
     try {
-        req.body.password = bcrypt.hashSync(req.body.password, 10); 
+        req.body.password = bcrypt.hashSync(req.body.password, 10);
         const createdUser = await user.create(req.body);
-        res.json({message: "User created", id: createdUser.id})
-        
+        res.json({ message: "User created", id: createdUser.id });
     } catch (err) {
         next(err);
     }
 };
 
-export { findAllUsers, getUserById, addUser};
+export { findAllUsers, getUserById, addUser };

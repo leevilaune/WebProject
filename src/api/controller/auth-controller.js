@@ -38,9 +38,9 @@ const postLogin = async (req, res, next) => {
 };
 
 const getMe = async (req, res, next) => {
-    console.log("getMe", res.locals.user);
-    if (res.locals.user) {
-        res.json({ message: "token ok", user: res.locals.user });
+    console.log("getMe", req.user);
+    if (req.user) {
+        res.json({ message: "token ok", user: req.user });
     } else {
         const error = new Error("Not authenticated, please login");
         error.status = 401;
