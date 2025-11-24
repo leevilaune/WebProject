@@ -17,10 +17,9 @@ const authenticateToken = async (req, res, next) => {
         next(error);
         return;
     }
-
     try {
-        res.locals.user = jwt.verify(token, process.env.JWT_SECRET);
-
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
+        //console.log(req.locals.user);
         next();
     } catch (err) {
         const error = new Error("Invalid token");

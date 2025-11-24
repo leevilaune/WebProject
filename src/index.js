@@ -9,6 +9,7 @@ import {
     errorHandler,
 } from "./api/middleware/error-handler.js";
 import cors from "cors";
+import orderRouter from "./api/router/order-router.js";
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,8 @@ app.use("/docs", express.static("docs"));
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/order", orderRouter);
+
 
 app.use(notFoundHandler);
 app.use(errorHandler);

@@ -1,11 +1,11 @@
 /**
- * @api {post} /product/add Add a new product
- * @apiName AddProduct
+ * @api {post} /product POST product
+ * @apiName PostProduct
  * @apiGroup Product
  * @apiVersion 1.0.0
- * @apiPermission admin
+ * @apiPermission authenticated
  *
- * @apiDescription Creates a new product. Only admins can access this endpoint.
+ * @apiDescription Creates a new product. Only admins can set `default_product = true`. Options and allergens can be linked if their IDs are provided.
  *
  * @apiHeader {String} Authorization Bearer token.
  *
@@ -14,7 +14,6 @@
  * @apiBody {String} category Product category.
  * @apiBody {String} [description] Product description.
  * @apiBody {String} [image_url] Product image URL.
- * @apiBody {Boolean} default_product Whether it's a default product.
  * @apiBody {Number[]} [option_ids] List of option IDs to associate.
  * @apiBody {Number[]} [allergen_ids] List of allergen IDs to associate.
  *
@@ -28,7 +27,6 @@
  * @apiSuccess {String} [new.image_url] Product image URL.
  * @apiSuccess {Boolean} new.default_product Whether it's a default product.
  *
- * @apiError (403) Forbidden No access.
  * @apiError (400) BadRequest Could not create the product.
  *
  * @apiExample {json} Request Body Example:
@@ -36,9 +34,8 @@
  *   "name": "Pizza Margherita",
  *   "price": 12.5,
  *   "category": "pizza",
- *   "description": "Classic pizza with tomatoes and mozzarella.",
+ *   "description": "Classic pizza with tomatoes and mozzarella",
  *   "image_url": "https://example.com/pizza.jpg",
- *   "default_product": false,
  *   "option_ids": [1, 2],
  *   "allergen_ids": [3]
  * }
@@ -52,9 +49,9 @@
  *     "name": "Pizza Margherita",
  *     "price": 12.5,
  *     "category": "pizza",
- *     "description": "Classic pizza with tomatoes and mozzarella.",
+ *     "description": "Classic pizza with tomatoes and mozzarella",
  *     "image_url": "https://example.com/pizza.jpg",
- *     "default_product": false
+ *     "default_product": true
  *   }
  * }
  */
