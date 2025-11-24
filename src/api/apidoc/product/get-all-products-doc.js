@@ -1,5 +1,5 @@
 /**
- * @api {get} /product/all Get all default products
+ * @api {get} /product/all GET all default products
  * @apiName GetAllProducts
  * @apiGroup Product
  * @apiVersion 1.0.0

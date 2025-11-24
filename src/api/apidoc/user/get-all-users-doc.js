@@ -1,5 +1,5 @@
 /**
- * @api {get} /user/all Get all users
+ * @api {get} /user/all GET all users
  * @apiName FindAllUsers
  * @apiGroup User
  * @apiVersion 1.0.0

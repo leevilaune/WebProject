@@ -1,5 +1,5 @@
 /**
- * @api {get} /auth/me Validate token & get user info
+ * @api {get} /auth/me GET me
  * @apiName GetMe
  * @apiGroup Auth
  * @apiVersion 1.0.0
