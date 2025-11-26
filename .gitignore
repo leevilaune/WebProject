@@ -140,3 +140,4 @@ vite.config.ts.timestamp-*
 
 .env
 .http_tests.http
+uploads

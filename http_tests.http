@@ -1,6 +1,6 @@
 //@baseUrl = https://test.onesnzeroes.dev/api/v1
 @baseUrl = http://localhost:3000/api/v1
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2Mzk5MjAxMiwiZXhwIjoxNzY0MDc4NDEyfQ.4lghtry1EFRnUR-_eoQgGtdSQsRF1I0va2Zkird5uIc
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
 ### Get all products
 GET {{baseUrl}}/product/all
 Accept: application/json
@@ -24,6 +24,7 @@ Authorization: Bearer {{token}}
 ### broken add a new product
 POST {{baseUrl}}/product/add
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "product_name": "Cheeseburger",
@@ -121,3 +122,43 @@ Authorization: Bearer {{token}}
   "user_id": 4,
   "product_ids": [6]
 }
+
+### Add product with image
+POST {{baseUrl}}/product/add
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----BOUNDARY
+
+------BOUNDARY
+Content-Disposition: form-data; name="name"
+
+Cheeseburger
+------BOUNDARY
+Content-Disposition: form-data; name="price"
+
+8.99
+------BOUNDARY
+Content-Disposition: form-data; name="description"
+
+Classic burger with cheese
+------BOUNDARY
+Content-Disposition: form-data; name="category"
+
+main
+------BOUNDARY
+Content-Disposition: form-data; name="default_product"
+
+true
+------BOUNDARY
+Content-Disposition: form-data; name="option_ids"
+
+[1,2,4]
+------BOUNDARY
+Content-Disposition: form-data; name="allergen_ids"
+
+[1,2]
+------BOUNDARY
+Content-Disposition: form-data; name="image"; filename="burger.jpg"
+Content-Type: image/jpeg
+
+< cheeseburger_test.jpg
+------BOUNDARY--
