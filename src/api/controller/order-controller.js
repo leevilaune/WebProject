@@ -69,9 +69,7 @@ const postOrder = async (req, res, next) => {
 };
 
 const putOrder = async (req, res, next) => {
-  const oldOrder = await order.findOne({
-    where: { order_number: req.params.id },
-  });
+  const oldOrder = await order.findByPk(req.params.id)
   if (!oldOrder) {
     const error = new Error(`No order with id ${req.params.id}`);
     error.status = 404;
@@ -98,9 +96,7 @@ const putOrder = async (req, res, next) => {
 };
 
 const deleteOrder = async (req, res, next) => {
-  const oldOrder = await order.findOne({
-    where: { order_number: req.params.id },
-  });
+  const oldOrder = await order.ffindByPk(req.params.id)
   if (!oldOrder) {
     const error = new Error(`No order with id ${req.params.id}`);
     error.status = 404;
