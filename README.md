@@ -75,7 +75,7 @@ erDiagram
 
 ## Deployment
 
-API is deployed in https://test.onesnzeroes.dev which is inaccessible in eduroam/metropolia network
+API is deployed in https://test.onesnzeroes.dev **NOW AVAILABLE IN METROPOLIA NETWORK**
 
 Instructions for deployment below
 
