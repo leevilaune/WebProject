@@ -1,11 +1,12 @@
 import express from 'express';
 import { getAllProducts, addProduct} from '../controller/product-controller.js';
 import { authenticateToken } from "../middleware/auth.js";
+import upload from '../middleware/upload.js';
 
 
 const productRouter = express.Router();
 
 productRouter.route("/all").get(getAllProducts);
-productRouter.route("/add").post(authenticateToken, addProduct);
+productRouter.route("/add").post(authenticateToken, upload.single("image"), addProduct);
 
 export default productRouter;
