@@ -124,7 +124,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Put order
-PUT {{baseUrl}}/order/7
+PUT {{baseUrl}}/order/5
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -135,6 +135,22 @@ Authorization: Bearer {{token}}
 
 ### Delete order
 DELETE {{baseUrl}}/order/9
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Put product
+PUT {{baseUrl}}/product/12
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name":"new 2burger",
+  "category": "burger"
+}
+
+### Delete product
+DELETE {{baseUrl}}/product/12
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

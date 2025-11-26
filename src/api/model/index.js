@@ -23,4 +23,4 @@ option.belongsToMany(product, {through: productOption, foreignKey:'option_id', o
 allergen.belongsToMany(product, {through: productAllergen, foreignKey: 'allergen_id', otherKey: 'product_id'});
 product.belongsToMany(allergen, {through: productAllergen, foreignKey: 'product_id', otherKey: 'allergen_id'});
 
-export {user,product,order,option, allergen, orderedFood};
+export {user,product,order,option, allergen, orderedFood, productOption, productAllergen};
