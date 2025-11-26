@@ -29,7 +29,7 @@ app.use(errorHandler);
 
 try {
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    //await sequelize.sync({ alter: true });
     console.log("DB connection established");
 } catch (error) {
     console.error("DB connection failed", error);

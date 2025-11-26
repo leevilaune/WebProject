@@ -120,8 +120,23 @@ Authorization: Bearer {{token}}
   "price": 8.99,
   "delivery_address":"delivery address",
   "user_id": 4,
-  "product_ids": [6]
+  "product_ids": [1,2,6]
 }
+
+### Put order
+PUT {{baseUrl}}/order/7
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "delivery_address":"new delivery address"
+}
+
+### Delete order
+DELETE {{baseUrl}}/order/9
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Add product with image
 POST {{baseUrl}}/product/add
