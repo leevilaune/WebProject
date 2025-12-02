@@ -2,6 +2,9 @@
 //@baseUrl = http://localhost:3000/api/v1
 //@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6ImlsbG9yZGVyMiIsImVtYWlsIjoiZW1haWwyQHByb3ZpZGVyLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2ODg4NiwiZXhwIjoxNzY0NzU1Mjg2fQ.F5UlGo6-e4EaGp6rOn-3YCL4A7gpVSFBEw-k8pD_H8c
+
+
+
 ### Get all products
 GET {{baseUrl}}/product/all
 Accept: application/json
@@ -91,9 +94,9 @@ Accept: application/json
 
 {
   "role": "user",
-  "username": "illorder2",
-  "password": "fuckme?2",
-  "email": "email2@provider.com",
+  "username": "illorder3",
+  "password": "fuckme?3",
+  "email": "email3@provider.com",
   "role": "admin"
 }
 
@@ -103,8 +106,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "illorder2",
-  "password": "fuckme?2"
+  "username": "illorder3",
+  "password": "fuckme?3"
 }
 
 ### Get orders

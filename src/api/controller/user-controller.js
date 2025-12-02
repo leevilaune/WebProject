@@ -41,8 +41,8 @@ const getUserById = async (req, res, next) => {
 const addUser = async (req, res, next) => {
     console.log(req.body);
     try {
-        if(req.body.role == "admin"){
-            const error = new Error("UNAUTHORIZED: Creating admin user is not allowed");
+        if(req.body.role){
+            const error = new Error("UNAUTHORIZED: including 'role' not permitted");
             error.status = 401;
             next(error);
             return;
