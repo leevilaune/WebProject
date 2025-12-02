@@ -41,6 +41,13 @@ const getUserById = async (req, res, next) => {
 const addUser = async (req, res, next) => {
     console.log(req.body);
     try {
+        if(req.body.role == "admin"){
+            const error = new Error("UNAUTHORIZED: Creating admin user is not allowed");
+            error.status = 401;
+            next(error);
+            return;
+        }
+        req.body.role = "user";
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const createdUser = await user.create(req.body);
         res.json({ message: "User created", id: createdUser.id });
