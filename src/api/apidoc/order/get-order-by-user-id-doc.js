@@ -1,5 +1,5 @@
 /**
- * @api {get} /order/byuser/:id Get orders by user ID
+ * @api {get} /order/byuser/:id GET orders by user ID
  * @apiName GetOrdersByUserId
  * @apiGroup Order
  * @apiVersion 1.0.0
