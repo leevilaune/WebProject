@@ -1,9 +1,8 @@
-@baseUrl = https://test.onesnzeroes.dev/api/v1
-//@baseUrl = http://localhost:3000/api/v1
+//@baseUrl = https://test.onesnzeroes.dev/api/v1
+@baseUrl = http://localhost:3000/api/v1
 //@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6ImlsbG9yZGVyMiIsImVtYWlsIjoiZW1haWwyQHByb3ZpZGVyLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2ODg4NiwiZXhwIjoxNzY0NzU1Mjg2fQ.F5UlGo6-e4EaGp6rOn-3YCL4A7gpVSFBEw-k8pD_H8c
-
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6InVzZXIiLCJlbWFpbCI6InVzZXJAZW1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjUyMjQ0MTAsImV4cCI6MTc2NTMxMDgxMH0.54KNNJLDmu4_pC1Q-PS2iMozKUJ2jRo_uZ1Qs1ug_mw
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6ImFsZWtzaSIsImVtYWlsIjoiZW1haWwzQHByb3ZpZGVyLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTIyNDgyOCwiZXhwIjoxNzY1MzExMjI4fQ.nzwywVSiB2AzP9AKIkR6C8ppRxwyCBVB-pPlKaGRl9E
 
 ### Get all products
 GET {{baseUrl}}/product/all
@@ -56,8 +55,8 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "username": "alice",
-  "password": "pass123"
+  "username": "aleksi",
+  "password": "aleksi"
 }
 
 ### Get me
@@ -75,7 +74,7 @@ Authorization: Bearer {{token}}
 ### Get me with valid token
 GET {{baseUrl}}/auth/me
 Accept: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{adminToken}}
 
 ### Get user by id
 GET {{baseUrl}}/user/4
@@ -93,11 +92,43 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "role": "user",
   "username": "illorder3",
   "password": "fuckme?3",
-  "email": "email3@provider.com",
-  "role": "admin"
+  "email": "email3@provider.com"
+}
+
+### Post user
+POST {{baseUrl}}/user/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "user",
+  "password": "user",
+  "email": "user@email.com"
+}
+
+### Get orders by user id
+GET {{baseUrl}}/order/byuser/6
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Put status
+PUT {{baseUrl}}/order/status/2
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "status": "preparing"
+}
+
+### Post login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user"
 }
 
 ### Post login
@@ -124,8 +155,8 @@ Authorization: Bearer {{token}}
 {
   "price": 8.99,
   "delivery_address":"delivery address",
-  "user_id": 4,
-  "product_ids": [1,2,6]
+  "user_id": 6,
+  "product_ids": [5]
 }
 
 ### Put order
