@@ -16,7 +16,7 @@ const ProductList = () => {
             const data = await res.json();
             setProducts(Array.isArray(data) ? data : []);
         } catch (err) {
-            console.error("Error fetching products:", err);
+            console.error("error fetching products:", err);
             setProducts([]);
         } finally {
             setLoading(false);
@@ -24,7 +24,7 @@ const ProductList = () => {
     };
 
     const deleteProduct = async (productId) => {
-        if (!window.confirm(`Delete product ${productId}?`)) return;
+        if (!window.confirm(`delete product ${productId}?`)) return;
         try {
             await fetch(
                 `https://test.onesnzeroes.dev/api/v1/product/${productId}`,
@@ -35,7 +35,7 @@ const ProductList = () => {
             );
             fetchProducts();
         } catch (err) {
-            console.error("Delete failed:", err);
+            console.error("delete failed:", err);
         }
     };
 
@@ -54,7 +54,7 @@ const ProductList = () => {
             );
             fetchProducts();
         } catch (err) {
-            console.error("Modify failed:", err);
+            console.error("modify failed:", err);
         }
     };
 

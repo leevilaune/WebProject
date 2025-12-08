@@ -35,7 +35,7 @@ const ProductCard = ({ product, onDelete, onModify }) => {
                     <ul>
                         {product.options.map((o) => (
                             <li key={o.option_id}>
-                                {o.name} – {o.description}
+                                {o.name} - {o.description}
                             </li>
                         ))}
                     </ul>

@@ -22,7 +22,7 @@ const OrderList = () => {
                 const data = await res.json();
                 setOrders(Array.isArray(data) ? data : []);
             } catch (err) {
-                console.error("Failed to fetch orders:", err);
+                console.error("dailed to fetch orders:", err);
             } finally {
                 setLoading(false);
             }
@@ -31,8 +31,8 @@ const OrderList = () => {
         fetchOrders();
     }, [token]);
 
-    if (!token) return <p>Please log in to see orders.</p>;
-    if (loading) return <p>Loading orders...</p>;
+    if (!token) return <p>log in to see orders</p>;
+    if (loading) return <p>loading orders...</p>;
 
     return (
         <table>

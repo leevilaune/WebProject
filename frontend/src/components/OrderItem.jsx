@@ -84,7 +84,7 @@ const OrderItem = ({ order }) => {
                             <ul>
                                 {prod.options.map((opt) => (
                                     <li key={opt.option_id}>
-                                        {opt.name} – {opt.description}
+                                        {opt.name} - {opt.description}
                                     </li>
                                 ))}
                             </ul>

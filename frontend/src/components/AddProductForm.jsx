@@ -12,11 +12,11 @@ const AddProductForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus("Uploading...");
+        setStatus("uploading...");
 
         const token = localStorage.getItem("authToken");
         if (!token) {
-            setStatus("Missing token — login first!");
+            setStatus("missing token");
             return;
         }
 
@@ -44,11 +44,11 @@ const AddProductForm = () => {
             const data = await res.json();
 
             if (!res.ok) {
-                setStatus(`Error: ${data.message || "Failed to add product"}`);
+                setStatus(`Error: ${data.message || "failed to add product"}`);
                 return;
             }
 
-            setStatus("Product added successfully!");
+            setStatus("product added successfully");
             setName("");
             setPrice("");
             setCategory("");
@@ -58,7 +58,7 @@ const AddProductForm = () => {
             setImage(null);
         } catch (err) {
             console.error(err);
-            setStatus("Network error — try again.");
+            setStatus("network error");
         }
     };
 
