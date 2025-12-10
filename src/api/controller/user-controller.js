@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { user } from "../model/index.js";
+import { validationResult } from "express-validator";
 
 const findAllUsers = async (req, res, next) => {
     if (req.user.role != "admin") {
@@ -21,7 +22,10 @@ const findAllUsers = async (req, res, next) => {
 };
 
 const getUserById = async (req, res, next) => {
-    if (req.user.role !== "admin" && req.user.user_id !== Number(req.params.id)) {
+    if (
+        req.user.role !== "admin" &&
+        req.user.user_id !== Number(req.params.id)
+    ) {
         const error = new Error("Forbidden");
         error.status = 403;
         next(error);
@@ -39,10 +43,16 @@ const getUserById = async (req, res, next) => {
 };
 
 const addUser = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     console.log(req.body);
     try {
-        if(req.body.role){
-            const error = new Error("UNAUTHORIZED: including 'role' not permitted");
+        if (req.body.role) {
+            const error = new Error(
+                "UNAUTHORIZED: including 'role' not permitted"
+            );
             error.status = 401;
             next(error);
             return;
