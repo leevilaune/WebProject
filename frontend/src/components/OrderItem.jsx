@@ -13,7 +13,7 @@ const OrderItem = ({ order }) => {
                     onError={(e) => (e.target.style.display = "none")}
                 />
                 <div>
-                    <strong>{prod.name}</strong> (${prod.price.toFixed(2)})
+                    <strong>{prod.name}</strong> (€{prod.price.toFixed(2)})
                     <br />
                     <em>{prod.category}</em>
                     <br />
@@ -27,7 +27,7 @@ const OrderItem = ({ order }) => {
             <td>{order.order_number}</td>
             <td className="status-cap">{order.status}</td>
             <td>{order.delivery_address}</td>
-            <td>${order.price.toFixed(2)}</td>
+            <td>€{order.price.toFixed(2)}</td>
             <td>{formatTimestamp(order.timestamp)}</td>
             <td>{renderProducts()}</td>
         </tr>

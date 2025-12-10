@@ -3,13 +3,15 @@ import getImageUrl from "../utils/getImageUrl";
 import formatTimestamp from "../utils/formatTimestamp";
 import { API_BASE } from "../config/api";
 
-const AdminOrderItem = ({ order, onRefresh }) => {
+const AdminOrderItem = ({ order }) => {
     const [editing, setEditing] = useState(false);
     const [newAddress, setNewAddress] = useState(order.delivery_address);
     const [status, setStatus] = useState(order.status || "received");
     const [statusMessage, setStatusMessage] = useState("");
 
     const token = localStorage.getItem("token");
+
+    // use shared formatTimestamp and getImageUrl utils
 
     const handleDelete = async () => {
         if (!token) return alert("Login first!");
@@ -25,9 +27,7 @@ const AdminOrderItem = ({ order, onRefresh }) => {
                 }
             );
             if (!res.ok) throw new Error("Delete failed");
-
             setStatusMessage("Deleted successfully");
-            onRefresh();
         } catch (err) {
             console.error(err);
             setStatusMessage("Delete failed");
@@ -49,10 +49,8 @@ const AdminOrderItem = ({ order, onRefresh }) => {
                 }
             );
             if (!res.ok) throw new Error("Modify failed");
-
             setStatusMessage("Modified successfully");
             setEditing(false);
-            onRefresh();
         } catch (err) {
             console.error(err);
             setStatusMessage("Modify failed");
@@ -74,9 +72,7 @@ const AdminOrderItem = ({ order, onRefresh }) => {
                 }
             );
             if (!res.ok) throw new Error("Status update failed");
-
             setStatusMessage("Status updated");
-            onRefresh();
         } catch (err) {
             console.error(err);
             setStatusMessage("Status update failed");
@@ -93,7 +89,7 @@ const AdminOrderItem = ({ order, onRefresh }) => {
                     onError={(e) => (e.target.style.display = "none")}
                 />
                 <div className="product-details">
-                    <strong>{prod.name}</strong> (${prod.price.toFixed(2)})
+                    <strong>{prod.name}</strong> (€{prod.price.toFixed(2)})
                     <br />
                     <em>{prod.category}</em>
                     <br />
@@ -149,7 +145,7 @@ const AdminOrderItem = ({ order, onRefresh }) => {
                     order.delivery_address
                 )}
             </td>
-            <td>${order.price.toFixed(2)}</td>
+            <td>€{order.price.toFixed(2)}</td>
             <td>{formatTimestamp(order.timestamp)}</td>
             <td>{order.user_id}</td>
             <td>{renderProducts()}</td>
