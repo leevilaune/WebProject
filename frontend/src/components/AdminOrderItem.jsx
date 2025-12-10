@@ -89,7 +89,7 @@ const AdminOrderItem = ({ order }) => {
                     onError={(e) => (e.target.style.display = "none")}
                 />
                 <div className="product-details">
-                    <strong>{prod.name}</strong> (${prod.price.toFixed(2)})
+                    <strong>{prod.name}</strong> (€{prod.price.toFixed(2)})
                     <br />
                     <em>{prod.category}</em>
                     <br />
@@ -145,7 +145,7 @@ const AdminOrderItem = ({ order }) => {
                     order.delivery_address
                 )}
             </td>
-            <td>${order.price.toFixed(2)}</td>
+            <td>€{order.price.toFixed(2)}</td>
             <td>{formatTimestamp(order.timestamp)}</td>
             <td>{order.user_id}</td>
             <td>{renderProducts()}</td>

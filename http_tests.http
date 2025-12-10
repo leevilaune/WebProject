@@ -1,13 +1,36 @@
 @baseUrl = https://test.onesnzeroes.dev/api/v1
 //@baseUrl = http://localhost:3000/api/v1
 //@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6ImlsbG9yZGVyMiIsImVtYWlsIjoiZW1haWwyQHByb3ZpZGVyLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2ODg4NiwiZXhwIjoxNzY0NzU1Mjg2fQ.F5UlGo6-e4EaGp6rOn-3YCL4A7gpVSFBEw-k8pD_H8c
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6InVzZXIzIiwiZW1haWwiOiJlbWFpbDNAcHJvdmlkZXIuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjUzNjUzNzQsImV4cCI6MTc2NTQ1MTc3NH0.SvO30bRB8FCt9Q_S2GAixHxnNNz9L-EiuxYsR0KPJ7w
 
 
-
-### Get all products
 GET {{baseUrl}}/product/all
 Accept: application/json
+### Post order
+POST {{baseUrl}}/order
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "price": 8.99,
+  "delivery_address":"delivery address",
+  "user_id": 7,
+  "product_ids": [10,11]
+}
+### Get me with invalid token
+GET {{baseUrl}}/auth/me
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Post login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "aleksi",
+  "password": "aleksi"
+}
 
 ### Add a new product
 POST {{baseUrl}}/product/add
@@ -24,6 +47,10 @@ Authorization: Bearer {{token}}
   "allergen_ids": [1,2],
   "default_product": true
 }
+### Get orders by user id
+GET {{baseUrl}}/order/byuser/7
+Accept: application/json
+Authorization: Bearer {{token}}
 
 ### broken add a new product
 POST {{baseUrl}}/product/add
@@ -51,14 +78,6 @@ Content-Type: application/json
 ### Delete a product (not implemented)
 DELETE {{baseUrl}}/product/1
 
-### Post login
-POST {{baseUrl}}/auth/login
-Content-Type: application/json
-
-{
-  "username": "alice",
-  "password": "pass123"
-}
 
 ### Get me
 GET {{baseUrl}}/auth/me
@@ -93,11 +112,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "role": "user",
-  "username": "illorder3",
-  "password": "fuckme?3",
-  "email": "email3@provider.com",
-  "role": "admin"
+  
+  "username": "user3",
+  "password": "salis",
+  "email": "email3@provider.com"
+  
 }
 
 ### Post login
@@ -106,8 +125,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "illorder3",
-  "password": "fuckme?3"
+  "username": "user3",
+  "password": "salis"
 }
 
 ### Get orders
@@ -124,8 +143,8 @@ Authorization: Bearer {{token}}
 {
   "price": 8.99,
   "delivery_address":"delivery address",
-  "user_id": 4,
-  "product_ids": [1,2,6]
+  "user_id": 7,
+  "product_ids": [7,6]
 }
 
 ### Put order
