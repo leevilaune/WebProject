@@ -6,6 +6,8 @@ import FilterMenu from '../components/FilterMenu';
 import ProductList from '../components/ProductList';
 import Modal from '../components/Modal';
 import ShoppingCart from '../components/ShoppingCart';
+import PaymentView from "../components/PaymentView";
+
 
 const Home = () => {
   const products = useProducts();
@@ -14,7 +16,21 @@ const Home = () => {
   const {  toggleCategory, toggleAllergen, filterProducts } = useFilter();
 
   // cart hook
-  const { cart, showCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart } = useCart();
+  const { cart, showCart, setShowCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart } = useCart();
+  
+  //show payment
+  const [showPayment, setShowPayment] = useState(false);
+
+  const openPayment = () => {
+  setShowCart(false); 
+  setShowPayment(true); 
+};
+
+const closePayment = () => {
+  setShowPayment(false); 
+};
+
+
 
   // show/hide menus
   const [showFilter, setShowFilter] = useState(false);
@@ -24,6 +40,11 @@ const Home = () => {
   const toggleAllergens = () => setShowAllergens(!showAllergens);
 
   const filteredProducts = filterProducts(products);
+
+  if (showPayment) {
+  return <PaymentView cart={cart} closePayment={closePayment} />;
+}
+
 
   return (
     <>
@@ -53,7 +74,13 @@ const Home = () => {
 
       {/* shopping cart button */}
       <button onClick={toggleCart}>Shopping cart ({cart.length})</button>
-      <ShoppingCart cart={cart} showCart={showCart} toggleCart={toggleCart} />
+
+        <ShoppingCart
+        cart={cart}
+        showCart={showCart}
+        toggleCart={toggleCart}
+        openPayment={openPayment} 
+        />
     </>
   );
 };

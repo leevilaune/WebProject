@@ -35,5 +35,5 @@ export const useCart = () => {
 
   const toggleCart = () => setShowCart(!showCart); 
 
-  return { cart, showCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart };
+  return { cart, showCart,setShowCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart };
 };

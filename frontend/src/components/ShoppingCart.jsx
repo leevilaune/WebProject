@@ -1,4 +1,4 @@
-const ShoppingCart = ({ cart, showCart, toggleCart }) => {
+const ShoppingCart = ({ cart, showCart, toggleCart, openPayment }) => {
   if (!showCart) return null;
 
   return (
@@ -12,6 +12,8 @@ const ShoppingCart = ({ cart, showCart, toggleCart }) => {
         </ul>
       )}
       <button onClick={toggleCart}>Close</button>
+      <button onClick={openPayment}>Payment</button>
+
     </div>
   );
 };
