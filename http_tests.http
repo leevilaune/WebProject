@@ -229,3 +229,11 @@ Content-Type: image/jpeg
 
 < cheeseburger_test.jpg
 ------BOUNDARY--
+
+### Get allergens
+GET {{baseUrl}}/misc/allergen
+Content-Type: application/json
+
+### Get options
+GET {{baseUrl}}/misc/option
+Content-Type: application/json

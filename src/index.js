@@ -4,6 +4,7 @@ import { error } from "console";
 import productRouter from "./api/router/product-router.js";
 import authRouter from "./api/router/auth-router.js";
 import userRouter from "./api/router/user-router.js";
+import miscRouter from "./api/router/misc-router.js";
 import {
     notFoundHandler,
     errorHandler,
@@ -22,6 +23,7 @@ app.use("/api/v1/product", productRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/misc", miscRouter);
 
 
 app.use(notFoundHandler);
