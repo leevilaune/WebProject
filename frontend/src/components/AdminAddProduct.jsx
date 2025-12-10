@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { API_BASE } from "../config/api";
 
-const AddProductForm = () => {
+const AdminAddProduct = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
@@ -14,7 +15,7 @@ const AddProductForm = () => {
         e.preventDefault();
         setStatus("uploading...");
 
-        const token = localStorage.getItem("authToken");
+        const token = localStorage.getItem("token");
         if (!token) {
             setStatus("missing token");
             return;
@@ -30,16 +31,13 @@ const AddProductForm = () => {
         if (image) formData.append("image", image);
 
         try {
-            const res = await fetch(
-                "https://test.onesnzeroes.dev/api/v1/product/add",
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: formData,
-                }
-            );
+            const res = await fetch(`${API_BASE}/api/v1/product/add`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: formData,
+            });
 
             const data = await res.json();
 
@@ -119,4 +117,4 @@ const AddProductForm = () => {
     );
 };
 
-export default AddProductForm;
+export default AdminAddProduct;

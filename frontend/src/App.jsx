@@ -1,26 +1,47 @@
-import React, { useState } from "react";
-import LoginForm from "./components/LoginForm.jsx";
-import AddProductForm from "./components/AddProductForm.jsx";
-import ProductList from "./components/ProductList.jsx";
-import OrderList from "./components/OrderList.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 
-function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(
-        !!localStorage.getItem("authToken")
-    ); //bad code because i never logout.
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Logout from "./components/Logout";
+import Menu from "./components/Menu";
+import Orders from "./components/Orders";
+import AdminAddProduct from "./components/AdminAddProduct";
+import AdminEditProduct from "./components/AdminEditProduct";
+import AdminOrders from "./components/AdminOrders";
 
+export default function App() {
     return (
-        <>
-            <LoginForm setIsLoggedIn={setIsLoggedIn} />
-            {isLoggedIn && (
-                <>
-                    <AddProductForm />
-                    <ProductList />
-                    <OrderList></OrderList>
-                </>
-            )}
-        </>
+        <BrowserRouter>
+            <AuthProvider>
+                <Navbar />
+
+                <Routes>
+                    <Route path="/menu" element={<Menu />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/logout" element={<Logout />} />
+
+                    <Route>
+                        <Route path="/orders" element={<Orders />} />
+                    </Route>
+
+                    <Route>
+                        <Route
+                            path="/admin/add-product"
+                            element={<AdminAddProduct />}
+                        />
+                        <Route
+                            path="/admin/manage-products"
+                            element={<AdminEditProduct />}
+                        />
+                        <Route path="/admin/orders" element={<AdminOrders />} />
+                    </Route>
+
+                    <Route path="*" element={<Menu />} />
+                </Routes>
+            </AuthProvider>
+        </BrowserRouter>
     );
 }
-
-export default App;

@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import ModifyProductDialog from "./ModifyProductDialog";
+import getImageUrl from "../utils/getImageUrl";
 
 const ProductCard = ({ product, onDelete, onModify }) => {
-    const baseUrl = "https://test.onesnzeroes.dev/uploads/";
     const [showModify, setShowModify] = useState(false);
-
-    const getImageUrl = (url) => {
-        if (!url) return null;
-        if (url.startsWith("http://") || url.startsWith("https://")) return url;
-        return baseUrl + url;
-    };
 
     const allergens = Array.isArray(product.allergens) ? product.allergens : [];
 

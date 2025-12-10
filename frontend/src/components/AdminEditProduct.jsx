@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "./AdminProductCard";
+import { API_BASE } from "../config/api";
 
-const ProductList = () => {
+const AdminEditProduct = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token");
 
     const fetchProducts = async () => {
         setLoading(true);
         try {
-            const res = await fetch(
-                "https://test.onesnzeroes.dev/api/v1/product/all"
-            );
+            const res = await fetch(`${API_BASE}/api/v1/product/all`);
             const data = await res.json();
             setProducts(Array.isArray(data) ? data : []);
         } catch (err) {
@@ -26,13 +25,10 @@ const ProductList = () => {
     const deleteProduct = async (productId) => {
         if (!window.confirm(`delete product ${productId}?`)) return;
         try {
-            await fetch(
-                `https://test.onesnzeroes.dev/api/v1/product/${productId}`,
-                {
-                    method: "DELETE",
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            );
+            await fetch(`${API_BASE}/api/v1/product/${productId}`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` },
+            });
             fetchProducts();
         } catch (err) {
             console.error("delete failed:", err);
@@ -42,7 +38,7 @@ const ProductList = () => {
     const modifyProduct = async (updatedProduct) => {
         try {
             await fetch(
-                `https://test.onesnzeroes.dev/api/v1/product/${updatedProduct.product_id}`,
+                `${API_BASE}/api/v1/product/${updatedProduct.product_id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -58,7 +54,6 @@ const ProductList = () => {
         }
     };
 
-    // Fetch products on component mount
     useEffect(() => {
         fetchProducts();
     }, []);
@@ -79,4 +74,4 @@ const ProductList = () => {
     );
 };
 
-export default ProductList;
+export default AdminEditProduct;

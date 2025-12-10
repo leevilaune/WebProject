@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
-import OrderItem from "./OrderItem";
+import AdminOrderItem from "./AdminOrderItem";
+import { API_BASE } from "../config/api";
 
-const OrderList = () => {
+const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchOrders = async () => {
             setLoading(true);
+
             try {
-                const res = await fetch(
-                    "https://test.onesnzeroes.dev/api/v1/order/all",
-                    {
-                        headers: {
-                            Authorization: token ? `Bearer ${token}` : "",
-                        },
-                    }
-                );
-                const data = await res.json();
-                setOrders(Array.isArray(data) ? data : []);
+                const res = await fetch(`${API_BASE}/api/v1/order/all`, {
+                    headers: {
+                        Authorization: token ? `Bearer ${token}` : "",
+                    },
+                });
+
+                let data = await res.json();
+                if (!Array.isArray(data)) data = [];
+
+                data.sort((a, b) => b.timestamp - a.timestamp);
+
+                setOrders(data);
             } catch (err) {
-                console.error("dailed to fetch orders:", err);
+                console.error("failed to fetch orders:", err);
             } finally {
                 setLoading(false);
             }
@@ -44,17 +48,22 @@ const OrderList = () => {
                     <th>Timestamp</th>
                     <th>User ID</th>
                     <th>Products</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 {orders.length === 0 ? (
                     <tr>
-                        <td colSpan="7">no orders found</td>
+                        <td colSpan="8">no orders found</td>
                     </tr>
                 ) : (
                     orders.map((order) => (
-                        <OrderItem key={order.order_number} order={order} />
+                        <AdminOrderItem
+                            key={order.order_number}
+                            order={order}
+                        />
                     ))
                 )}
             </tbody>
@@ -62,4 +71,4 @@ const OrderList = () => {
     );
 };
 
-export default OrderList;
+export default AdminOrders;
