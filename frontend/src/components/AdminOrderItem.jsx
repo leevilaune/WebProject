@@ -127,6 +127,7 @@ const AdminOrderItem = ({ order, onDelete, onModify }) => {
                             {prod.allergens.map((a) => (
                                 <span
                                     key={a.allergen_id}
+                                    q
                                     className="allergen-item"
                                 >
                                     <img
