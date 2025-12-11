@@ -51,9 +51,6 @@ const OrderItem = ({ order }) => {
 
     return (
         <div>
-            <p>
-                <strong>Order Number:</strong> {order.order_number}
-            </p>
             <p className="status-cap">
                 <strong>Status:</strong> {order.status}
             </p>
