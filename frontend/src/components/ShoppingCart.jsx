@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import getImageUrl from '../utils/getImageUrl'
-
+import getImageUrl from '../utils/getImageUrl';
 
 const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
   };
 
   return (
-    <div>
+    <dialog id="shopping-cart-dialog" open>
       <h3>Shopping cart</h3>
       {cart.length === 0 ? (
         <p>Cart is empty</p>
@@ -37,9 +36,8 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
           </div>
         )
       )}
-         <button onClick={toggleCart}>Close</button>
-
-    </div>
+      <button onClick={toggleCart}>Close</button>
+    </dialog>
   );
 };
 

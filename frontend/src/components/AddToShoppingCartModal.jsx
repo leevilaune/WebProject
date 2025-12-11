@@ -1,12 +1,11 @@
 import React from "react";
-import getImageUrl from '../utils/getImageUrl'
-
+import getImageUrl from '../utils/getImageUrl';
 
 const Modal = ({ selectedProduct, showModal, closeModal, addToCart }) => {
   if (!showModal || !selectedProduct) return null;
 
   return (
-    <div>
+    <dialog id="add-product" open>
       <h3>{selectedProduct.name}</h3>
       <p>{selectedProduct.description}</p>
       <img src={getImageUrl(selectedProduct.image_url)} alt={selectedProduct.name} />
@@ -25,7 +24,7 @@ const Modal = ({ selectedProduct, showModal, closeModal, addToCart }) => {
 
       <button onClick={() => addToCart(selectedProduct)}>Add to Cart</button>
       <button onClick={closeModal}>Cancel</button>
-    </div>
+    </dialog>
   );
 };
 
