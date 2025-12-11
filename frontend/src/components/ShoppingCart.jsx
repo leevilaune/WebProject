@@ -77,7 +77,10 @@ const ShoppingCart = ({
                     (token ? (
                         <button
                             className="payment-button"
-                            onClick={goToPayment}
+                            onClick={() => {
+                                goToPayment();
+                                toggleCart();
+                            }}
                         >
                             Payment
                         </button>
