@@ -141,6 +141,16 @@ Accept: application/json
   "password": "fuckme?3"
 }
 
+### Put user
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "illorder3",
+  "password": "fuckme?3"
+}
+
 ### Get orders
 GET {{baseUrl}}/order/all
 Accept: application/json

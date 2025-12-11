@@ -66,4 +66,36 @@ const addUser = async (req, res, next) => {
     }
 };
 
-export { findAllUsers, getUserById, addUser };
+const putUser = async (req, res, next) => {
+    const userId = Number(req.params.id);
+
+    if (req.user.role !== "admin" && req.user.user_id !== userId) {
+        const error = new Error("Forbidden");
+        error.status = 403;
+        next(error);
+        return;
+    }
+
+    try {
+        if (req.body.role && req.user.role !== "admin") {
+            const error = new Error("UNAUTHORIZED: cannot update 'role'");
+            error.status = 401;
+            next(error);
+            return;
+        }
+
+        if (req.body.password) {
+            req.body.password = bcrypt.hashSync(req.body.password, 10);
+        }
+
+        const updated_user = await user.update(req.body, {
+            where: { id: userId },
+        });
+
+        res.json({ updated: updated_user });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export { findAllUsers, getUserById, addUser, putUser };
