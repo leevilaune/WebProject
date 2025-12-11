@@ -29,6 +29,7 @@ const AuthProvider = ({ children }) => {
             console.log(response);
         } catch (error) {
             console.error(error.message);
+            throw error;
         }
     };
 
@@ -47,6 +48,7 @@ const AuthProvider = ({ children }) => {
             navigate("/login");
         } catch (error) {
             console.error(error.message);
+            throw error;
         }
     };
 
