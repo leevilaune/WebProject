@@ -38,6 +38,15 @@ const getAllProducts = async (req, res, next) => {
     }
 };
 
+const getProductById = async (req, res, next) => {
+    try {
+        const fetchedProduct = await product.findByPk(Number(req.params.id));
+        res.json(fetchedProduct);
+    } catch (err){
+        next(err);
+    }
+};
+
 const addProduct = async (req, res, next) => {
     let default_product = false;
     if (req.user.role == "admin") {
@@ -156,4 +165,12 @@ const postProductWithoutImage = async (req, res, next) => {
     }
 };
 
-export { getAllProducts, addProduct, putProduct, deleteProduct, postProductWithoutImage };
+export {
+    getAllProducts,
+    getProductById,
+    addProduct,
+    putProduct,
+    deleteProduct,
+    postProductWithoutImage,
+
+};
