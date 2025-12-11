@@ -153,7 +153,7 @@ const PaymentView = () => {
       </div>
 
       <div id="payment-total" style={{ marginTop: "1rem", fontWeight: "bold" }}>
-        Total: {totalPrice.toFixed(2)}€
+        Total: {totalPrice}€
       </div>
 
 
