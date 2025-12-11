@@ -4,33 +4,24 @@ import { useFilter } from '../hooks/useFilter';
 import { useCart } from '../hooks/useCart';
 import FilterMenu from '../components/FilterMenu';
 import ProductList from '../components/ProductList';
-import Modal from '../components/Modal';
+import Modal from '../components/AddToShoppingCartModal';
 import ShoppingCart from '../components/ShoppingCart';
-import PaymentView from "../components/PaymentView";
+import { useNavigate } from 'react-router';
+import { useAllergens } from '../hooks/useAllergeens';
 
 
 const Home = () => {
   const products = useProducts();
+  const allergens = useAllergens();
+  const categories = [...new Set(products.map(p => p.category))];
 
   // filter hook
   const {  toggleCategory, toggleAllergen, filterProducts } = useFilter();
-
   // cart hook
-  const { cart, showCart, setShowCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart } = useCart();
-  
-  //show payment
-  const [showPayment, setShowPayment] = useState(false);
+  const { cart, showCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart } = useCart();
 
-  const openPayment = () => {
-  setShowCart(false); 
-  setShowPayment(true); 
-};
-
-const closePayment = () => {
-  setShowPayment(false); 
-};
-
-
+  const navigate = useNavigate();
+  const goToPayment = () => navigate("/payment");
 
   // show/hide menus
   const [showFilter, setShowFilter] = useState(false);
@@ -41,9 +32,8 @@ const closePayment = () => {
 
   const filteredProducts = filterProducts(products);
 
-  if (showPayment) {
-  return <PaymentView cart={cart} closePayment={closePayment} />;
-}
+  
+
 
 
   return (
@@ -59,6 +49,9 @@ const closePayment = () => {
         toggleAllergens={toggleAllergens}
         showAllergens={showAllergens}
         toggleAllergen={toggleAllergen}
+        allergens={allergens}
+        categories={categories}
+
       />
 
       {/* product list with add to shopping cart button */}
@@ -79,7 +72,7 @@ const closePayment = () => {
         cart={cart}
         showCart={showCart}
         toggleCart={toggleCart}
-        openPayment={openPayment} 
+        goToPayment={goToPayment} 
         />
     </>
   );

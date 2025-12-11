@@ -1,15 +1,11 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export const useCart = () => {
   const [cart, setCart] = useState(() => {
     const stored = localStorage.getItem("cart");
-    if (stored) {
-        return JSON.parse(stored);
-        } else {
-        return [];
-        }
-  })
-  
+    return stored ? JSON.parse(stored) : [];
+  });
+
   const [showCart, setShowCart] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -28,12 +24,25 @@ export const useCart = () => {
     setSelectedProduct(null);
   };
 
-  const addToCart = () => {
-    setCart([...cart, selectedProduct]);
+  const addToCart = (product) => {
+    setCart([...cart, product]);
     closeModal();
   };
 
-  const toggleCart = () => setShowCart(!showCart); 
+  const toggleCart = () => setShowCart(!showCart);
+  const clearCart = () => setCart([]);
 
-  return { cart, showCart,setShowCart, showModal, selectedProduct, openModal, closeModal, addToCart, toggleCart };
+  return {
+    cart,
+    setCart,
+    showCart,
+    setShowCart,
+    showModal,
+    selectedProduct,
+    openModal,
+    closeModal,
+    addToCart,
+    toggleCart,
+    clearCart
+  };
 };

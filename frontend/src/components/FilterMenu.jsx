@@ -1,22 +1,27 @@
-const FilterMenu = ({ showFilter, toggleFilter, toggleCategory, toggleAllergens, showAllergens, toggleAllergen }) => {
+const FilterMenu = ({ showFilter, toggleFilter, toggleCategory, toggleAllergens, 
+    showAllergens, toggleAllergen,allergens,categories }) => {
   if (!showFilter) return null;
 
   return (
     <div>
       <ul>
-        <li><button onClick={() => toggleCategory("pizza")}>Pizza</button></li>
-        <li><button onClick={() => toggleCategory("burger")}>Burger</button></li>
-        <li><button onClick={() => toggleCategory("salad")}>Salad</button></li>
-
+        {categories.map((cat, i) => (
+          <li key={i}>
+            <button onClick={() => toggleCategory(cat)}>{cat}</button>
+          </li>
+        ))}
         <li>
           <button onClick={toggleAllergens}>Allergens</button>
           {showAllergens && (
-            <div>
+             <div>
               <ul>
-                <li><button onClick={() => toggleAllergen("dairy")}>dairy</button></li>
-                <li><button onClick={() => toggleAllergen("gluten")}>gluten</button></li>
-                <li><button onClick={() => toggleAllergen("egg")}>egg</button></li>
-                <li><button onClick={toggleAllergens}>close</button></li>
+                {allergens.map(a => (
+                  <li key={a.allergen_id}>
+                    <button onClick={() => toggleAllergen(a.allergen_name)}>
+                      {a.allergen_name}
+                      </button>
+                  </li>
+                    ))}
               </ul>
             </div>
           )}

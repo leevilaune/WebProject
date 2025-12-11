@@ -5,7 +5,8 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Logout from "./components/Logout";
-import Menu from "./components/Menu";
+import PaymentView from "./components/PaymentView";
+import Home from "./views/Home";
 import Orders from "./components/Orders";
 import AdminAddProduct from "./components/AdminAddProduct";
 import AdminEditProduct from "./components/AdminEditProduct";
@@ -18,7 +19,8 @@ export default function App() {
                 <Navbar />
 
                 <Routes>
-                    <Route path="/menu" element={<Menu />} />
+                    <Route path="/menu" element={<Home />} />
+                    <Route path="/payment" element={<PaymentView />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/logout" element={<Logout />} />
@@ -39,7 +41,7 @@ export default function App() {
                         <Route path="/admin/orders" element={<AdminOrders />} />
                     </Route>
 
-                    <Route path="*" element={<Menu />} />
+                    <Route path="*" element={<Home />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
