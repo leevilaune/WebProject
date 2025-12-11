@@ -37,6 +37,7 @@ export const useCart = () => {
                 );
             }
         } catch (e) {
+            console.log(e);
             // ignore
         }
     }, [cart]);
