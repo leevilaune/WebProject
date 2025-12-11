@@ -5,7 +5,6 @@ export default function Register() {
     const { handleRegister } = useContext(AuthContext);
     const [form, setForm] = useState({
         username: "",
-        name: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -30,7 +29,6 @@ export default function Register() {
 
         const payload = {
             username: form.username,
-            name: form.name,
             email: form.email,
             password: form.password,
             phone_number: form.phone_number,
@@ -48,90 +46,79 @@ export default function Register() {
     };
 
     return (
-        <div style={{ maxWidth: 560, margin: "2rem auto" }}>
+        <div id="register-container">
             <h2>Register</h2>
-            <form onSubmit={onSubmit}>
-                <div style={{ marginBottom: 8 }}>
-                    <label>Username</label>
+            <form id="register-form" onSubmit={onSubmit}>
+                <div id="register-field-username">
+                    <label htmlFor="register-username">Username</label>
                     <input
+                        id="register-username"
                         name="username"
                         value={form.username}
                         onChange={onChange}
                         required
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                <div style={{ marginBottom: 8 }}>
-                    <label>Full name</label>
+                <div id="register-field-email">
+                    <label htmlFor="register-email">Email</label>
                     <input
-                        name="name"
-                        value={form.name}
-                        onChange={onChange}
-                        required
-                        style={{ width: "100%" }}
-                    />
-                </div>
-
-                <div style={{ marginBottom: 8 }}>
-                    <label>Email</label>
-                    <input
+                        id="register-email"
                         name="email"
                         type="email"
                         value={form.email}
                         onChange={onChange}
                         required
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                <div style={{ marginBottom: 8 }}>
-                    <label>Password</label>
+                <div id="register-field-password">
+                    <label htmlFor="register-password">Password</label>
                     <input
+                        id="register-password"
                         name="password"
                         type="password"
                         value={form.password}
                         onChange={onChange}
                         required
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                <div style={{ marginBottom: 8 }}>
-                    <label>Confirm password</label>
+                <div id="register-field-confirmPassword">
+                    <label htmlFor="register-confirmPassword">
+                        Confirm password
+                    </label>
                     <input
+                        id="register-confirmPassword"
                         name="confirmPassword"
                         type="password"
                         value={form.confirmPassword}
                         onChange={onChange}
                         required
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                <div style={{ marginBottom: 8 }}>
-                    <label>Phone number</label>
+                <div id="register-field-phone_number">
+                    <label htmlFor="register-phone_number">Phone number</label>
                     <input
+                        id="register-phone_number"
                         name="phone_number"
                         value={form.phone_number}
                         onChange={onChange}
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                <div style={{ marginBottom: 8 }}>
-                    <label>Address</label>
+                <div id="register-field-address">
+                    <label htmlFor="register-address">Address</label>
                     <input
+                        id="register-address"
                         name="address"
                         value={form.address}
                         onChange={onChange}
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                {error && (
-                    <div style={{ color: "red", marginBottom: 8 }}>{error}</div>
-                )}
+                {error && <div id="register-error">{error}</div>}
 
                 <button type="submit" disabled={loading}>
                     {loading ? "Registering..." : "Register"}
