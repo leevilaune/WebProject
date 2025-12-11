@@ -11,7 +11,12 @@ export const useCart = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (e) {
+    
+      console.error("Failed to persist cart to localStorage", e);
+    }
   }, [cart]);
 
   const openModal = (product) => {
@@ -25,11 +30,11 @@ export const useCart = () => {
   };
 
   const addToCart = (product) => {
-    setCart([...cart, product]);
+    setCart(prev => [...prev, product]);
     closeModal();
   };
 
-  const toggleCart = () => setShowCart(!showCart);
+  const toggleCart = () => setShowCart(prev => !prev);
   const clearCart = () => setCart([]);
 
   return {

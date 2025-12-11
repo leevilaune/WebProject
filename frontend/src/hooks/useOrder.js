@@ -1,73 +1,121 @@
 import { useState } from "react";
 
+
 export const useOrder = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const cloneProduct = async (product, token) => {
+    // product: full product object from cart (must contain name, price, category, description, image_url, options, allergens)
+    const option_ids = (product.options || []).map(o => o.option_id).filter(Boolean);
+    const allergen_ids = (product.allergens || []).map(a => a.allergen_id).filter(Boolean);
+
+    const body = {
+      name: product.name,
+      price: Number(product.price),
+      category: product.category || "",
+      description: product.description || "",
+      image_url: product.image_url || "",
+      option_ids: option_ids,
+      allergen_ids: allergen_ids
+    };
+
+    const res = await fetch("https://test.onesnzeroes.dev/api/v1/product/add/copy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      const msg = data?.message || data?.error || `Clone failed (status ${res.status})`;
+      throw new Error(msg);
+    }
+
+    // API returned { new: { product_id: ... } } per docs
+    if (!data?.new?.product_id) {
+      throw new Error("Clone response missing new.product_id");
+    }
+
+    return data.new.product_id;
+  };
 
   const placeOrder = async ({ deliveryAddress, cart, userId, token }) => {
     setLoading(true);
     setError(null);
 
     try {
-      const productCount = {};
+      if (!Array.isArray(cart) || cart.length === 0) {
+        throw new Error("Cart is empty");
+      }
+      if (!token) {
+        throw new Error("Missing auth token");
+      }
+      
+      const productBuckets = {};
       cart.forEach(item => {
         const id = Number(item.product_id);
-        if (!productCount[id]) productCount[id] = [];
-        productCount[id].push(Number(item.price));
+        if (!productBuckets[id]) productBuckets[id] = [];
+        productBuckets[id].push(item);
       });
 
-      // Generate batches in each batch only one of each product
-      const maxCount = Math.max(...Object.values(productCount).map(arr => arr.length));
-      const batches = [];
+      const finalProductIds = [];
 
-      for (let i = 0; i < maxCount; i++) {
-        const batchIds = [];
-        let batchPrice = 0;
+      for (const idStr of Object.keys(productBuckets)) {
+        const id = Number(idStr);
+        const bucket = productBuckets[id];
+        finalProductIds.push(id);
 
-        for (const id in productCount) {
-          if (productCount[id][i] !== undefined) {
-            batchIds.push(Number(id));
-            batchPrice += productCount[id][i];
+        if (bucket.length > 1) {
+          const clonesNeeded = bucket.length - 1;
+          const productToClone = bucket[0];
+
+          for (let i = 0; i < clonesNeeded; i++) {
+            const newId = await cloneProduct(productToClone, token);
+            finalProductIds.push(Number(newId));
           }
         }
-
-        if (batchIds.length > 0) {
-          batches.push({
-            delivery_address: deliveryAddress,
-            price: Math.round(batchPrice * 100) / 100,
-            user_id: userId,
-            product_ids: batchIds
-          });
-        }
       }
 
-      const responses = [];
+      const price = Math.round(cart.reduce((sum, it) => sum + Number(it.price || 0), 0) * 100) / 100;
 
-      for (const batch of batches) {
-        console.log("ORDER SENT:", batch);
-        const res = await fetch("https://test.onesnzeroes.dev/api/v1/order/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-          body: JSON.stringify(batch),
-        });
+      const orderBody = {
+        delivery_address: deliveryAddress || "Default address",
+        price,
+        user_id: Number(userId),
+        product_ids: finalProductIds
+      };
 
-        const data = await res.json();
-        console.log("ORDER RESPONSE:", data);
+      console.log("ORDER SENT:", orderBody);
 
-        if (!res.ok) throw new Error(data?.error || "Failed to place order");
-        responses.push(data.new);
+      const orderRes = await fetch("https://test.onesnzeroes.dev/api/v1/order/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(orderBody)
+      });
+
+      const orderData = await orderRes.json();
+      console.log("ORDER RESPONSE:", orderData);
+
+      if (!orderRes.ok) {
+        const msg = orderData?.message || orderData?.error || `Order failed (status ${orderRes.status})`;
+        throw new Error(msg);
       }
 
       setLoading(false);
-      return responses; 
+      return orderData.new || orderData;
     } catch (err) {
       setError(err.message);
-      console.log("ORDER ERROR:", err);
+      console.error("ORDER ERROR:", err);
       setLoading(false);
-      return null;
+      throw err;
     }
   };
 
