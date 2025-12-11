@@ -11,6 +11,9 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment, removeFromCart 
     navigate("/login");
   };
 
+  // Calculate total price
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price || 0), 0);
+
   return (
     <dialog id="shopping-cart-dialog" open>
       <div className="cart-header">
@@ -48,7 +51,13 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment, removeFromCart 
         )}
       </div>
 
-      <div className="cart-actions">
+      {cart.length > 0 && (
+        <div id="cart-total-price" style={{ marginTop: "1rem", fontWeight: "bold" }}>
+          Total: {totalPrice.toFixed(2)}€
+        </div>
+      )}
+
+      <div className="cart-actions" style={{ marginTop: "1rem" }}>
         {cart.length > 0 &&
           (token ? (
             <button className="payment-button" onClick={goToPayment}>
@@ -61,8 +70,8 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment, removeFromCart 
             </div>
           ))}
 
-        <button className="close-cart-button" onClick={toggleCart}>
-          Close
+        <button className="close-cart-button" onClick={toggleCart} >
+          ✖
         </button>
       </div>
     </dialog>
