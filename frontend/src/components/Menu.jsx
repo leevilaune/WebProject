@@ -1,4 +1,3 @@
-// Menu.jsx
 import React, { useState, useEffect } from "react";
 import ProductDialog from "./ProductDialog";
 import { API_BASE } from "../config/api";
@@ -9,26 +8,29 @@ const Menu = () => {
     const [allergens, setAllergens] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedProduct, setSelectedProduct] = useState(null);
+
     const [cart, setCart] = useState(() => {
         const saved = localStorage.getItem("cart");
         return saved ? JSON.parse(saved) : [];
     });
+    const [showCart, setShowCart] = useState(false);
+    const [address, setAddress] = useState("");
 
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        async function load() {
+        const loadData = async () => {
             try {
+                const [pRes, oRes, aRes] = await Promise.all([
+                    fetch(`${API_BASE}/api/v1/product/all`),
+                    fetch(`${API_BASE}/api/v1/misc/option`),
+                    fetch(`${API_BASE}/api/v1/misc/allergen`),
+                ]);
+
                 const [p, o, a] = await Promise.all([
-                    fetch(`${API_BASE}/api/v1/product/all`).then((r) =>
-                        r.json()
-                    ),
-                    fetch(`${API_BASE}/api/v1/misc/option`).then((r) =>
-                        r.json()
-                    ),
-                    fetch(`${API_BASE}/api/v1/misc/allergen`).then((r) =>
-                        r.json()
-                    ),
+                    pRes.json(),
+                    oRes.json(),
+                    aRes.json(),
                 ]);
 
                 setProducts(p);
@@ -39,16 +41,78 @@ const Menu = () => {
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
-        load();
-    }, []);
+        const loadUserAddress = async () => {
+            try {
+                const userId = localStorage.getItem("user_id");
+                if (!userId) return;
+
+                const res = await fetch(`${API_BASE}/api/v1/user/${userId}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const data = await res.json();
+                setAddress(data.address || "");
+            } catch (err) {
+                console.error("Error fetching user address:", err);
+            }
+        };
+
+        Promise.all([loadData(), loadUserAddress()]);
+    }, [token]);
 
     if (loading) return <p>Loading menu...</p>;
+
+    const addToCart = (product) => {
+        const newCart = [...cart, product];
+        setCart(newCart);
+        localStorage.setItem("cart", JSON.stringify(newCart));
+    };
+
+    const removeFromCart = (id) => {
+        const newCart = cart.filter((item) => item.product_id !== id);
+        setCart(newCart);
+        localStorage.setItem("cart", JSON.stringify(newCart));
+    };
+
+    const handlePay = async () => {
+        try {
+            const product_ids = cart.map((p) => p.product_id);
+            const totalPrice = cart.reduce((sum, p) => sum + p.price, 0);
+
+            const res = await fetch(`${API_BASE}/api/v1/order/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    delivery_address: address,
+                    price: totalPrice,
+                    user_id: localStorage.getItem("user_id"),
+                    product_ids,
+                }),
+            });
+
+            const data = await res.json();
+            console.log("Order response:", data);
+            alert("Order placed successfully!");
+
+            setCart([]);
+            localStorage.removeItem("cart");
+            setShowCart(false);
+        } catch (err) {
+            console.error("Order failed:", err);
+        }
+    };
 
     return (
         <div>
             <h1>Menu</h1>
+
+            <button onClick={() => setShowCart(true)}>
+                Cart ({cart.length})
+            </button>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
                 {products.map((p) => {
@@ -82,7 +146,7 @@ const Menu = () => {
                                 <strong>€{p.price.toFixed(2)}</strong>
                             </p>
 
-                            {/* Allergens shown ONLY here */}
+                            {/* Allergens only on product cards */}
                             {productAllergens.length > 0 && (
                                 <div style={{ marginTop: "0.25rem" }}>
                                     <strong>Allergens:</strong>
@@ -117,16 +181,129 @@ const Menu = () => {
                 })}
             </div>
 
+            {/* Product dialog */}
             {selectedProduct && (
                 <ProductDialog
                     product={selectedProduct}
                     options={options}
                     onClose={() => setSelectedProduct(null)}
-                    onConfirm={(selectedOptionIds) => {
-                        console.log("Selected options:", selectedOptionIds);
+                    onConfirm={async (selectedOptionIds) => {
+                        const res = await fetch(
+                            `${API_BASE}/api/v1/product/add/copy`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                },
+                                body: JSON.stringify({
+                                    name: selectedProduct.name,
+                                    price: selectedProduct.price,
+                                    category: selectedProduct.category,
+                                    description: selectedProduct.description,
+                                    image_url: selectedProduct.image_url,
+                                    option_ids: selectedOptionIds,
+                                    allergen_ids:
+                                        selectedProduct.allergens?.map(
+                                            (a) => a.allergen_id
+                                        ) || [],
+                                }),
+                            }
+                        );
+
+                        const data = await res.json();
+                        addToCart(data.new);
                         setSelectedProduct(null);
                     }}
                 />
+            )}
+
+            {/* Shopping Cart Dialog */}
+            {showCart && (
+                <div
+                    onClick={() => setShowCart(false)}
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "rgba(0,0,0,0.5)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                            background: "white",
+                            padding: "1rem",
+                            borderRadius: "8px",
+                            width: "90%",
+                            maxWidth: "500px",
+                            position: "relative",
+                        }}
+                    >
+                        <button
+                            onClick={() => setShowCart(false)}
+                            style={{
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                cursor: "pointer",
+                            }}
+                        >
+                            ✖
+                        </button>
+
+                        <h2>Your Cart</h2>
+
+                        {cart.length === 0 && <p>Cart is empty.</p>}
+
+                        {cart.map((item) => (
+                            <div
+                                key={item.product_id}
+                                style={{
+                                    borderBottom: "1px solid #ddd",
+                                    padding: "0.5rem 0",
+                                }}
+                            >
+                                <strong>{item.name}</strong> — €
+                                {item.price.toFixed(2)}
+                                <button
+                                    onClick={() =>
+                                        removeFromCart(item.product_id)
+                                    }
+                                    style={{ marginLeft: "1rem" }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
+
+                        {/* Delivery address input */}
+                        <div style={{ marginTop: "1rem" }}>
+                            <label>
+                                Delivery Address:
+                                <input
+                                    type="text"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    style={{
+                                        width: "100%",
+                                        marginTop: "0.5rem",
+                                    }}
+                                />
+                            </label>
+                        </div>
+
+                        {/* Pay button */}
+                        <div style={{ marginTop: "1rem" }}>
+                            <button onClick={handlePay}>Pay</button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
