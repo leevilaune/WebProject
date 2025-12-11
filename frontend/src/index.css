@@ -216,6 +216,11 @@ dialog img {
 .item-info {
     margin-bottom: 5px;
 }
+.cart-items ul {
+    max-height: 300px; /* adjust as needed */
+    overflow-y: auto;
+    padding-left: 1rem; /* optional, keeps bullets aligned */
+}
 
 .shopping-cart-dialog {
     position: relative;
