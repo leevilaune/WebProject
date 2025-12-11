@@ -1,0 +1,74 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.menu-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.menu-line {
+    width: 18px;
+    height: 2px;
+    background: #111;
+    display: block;
+}
+
+.nav-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-actions a button,
+.nav-actions button {
+    padding: 0.4rem 0.6rem;
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 56px;
+    left: 8px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    padding: 0.5rem;
+    border-radius: 6px;
+    min-width: 180px;
+    z-index: 1100;
+}
+
+.menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.menu-list a {
+    color: inherit;
+    text-decoration: none;
+}
