@@ -1,4 +1,10 @@
-import { product, option, allergen, productOption, productAllergen } from "../model/index.js";
+import {
+    product,
+    option,
+    allergen,
+    productOption,
+    productAllergen,
+} from "../model/index.js";
 
 const getAllProducts = async (req, res, next) => {
     const products = await product.findAll({
@@ -103,8 +109,8 @@ const deleteProduct = async (req, res, next) => {
         return;
     }
     try {
-        await productOption.destroy({where: { product_id: req.params.id } });
-        await productAllergen.destroy({where: { product_id: req.params.id } });
+        await productOption.destroy({ where: { product_id: req.params.id } });
+        await productAllergen.destroy({ where: { product_id: req.params.id } });
         await product.destroy({ where: { product_id: req.params.id } });
         res.json({ deleted: { product_id: req.params.id } });
     } catch (err) {
@@ -112,4 +118,42 @@ const deleteProduct = async (req, res, next) => {
     }
 };
 
-export { getAllProducts, addProduct, putProduct, deleteProduct };
+const postProductWithoutImage = async (req, res, next) => {
+    let default_product = false;
+    if (req.user.role == "admin") {
+        default_product = true;
+    }
+    const {
+        name,
+        price,
+        category,
+        description,
+        image_url,
+        option_ids,
+        allergen_ids,
+    } = req.body;
+    try {
+        const newProduct = await product.create({
+            name: name,
+            price: price,
+            category: category,
+            description: description,
+            image_url: image_url,
+            default_product: default_product,
+        });
+        if (option_ids && option_ids.length > 0) {
+            await newProduct.setOptions(option_ids);
+        }
+        if (allergen_ids && allergen_ids.length > 0) {
+            await newProduct.setAllergens(allergen_ids);
+        }
+        res.json({ new: newProduct });
+    } catch (err) {
+        const error = new Error("Could not create a product");
+        error.status = 400;
+        console.log("addProduct", error);
+        next(error);
+    }
+};
+
+export { getAllProducts, addProduct, putProduct, deleteProduct, postProductWithoutImage };
