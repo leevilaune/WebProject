@@ -67,7 +67,7 @@ const OrderItem = ({ order }) => {
                 <strong>Timestamp:</strong> {formatTimestamp(order.timestamp)}
             </p>
             <br />
-            <p>{renderProducts()}</p>
+            <div>{renderProducts()}</div>
         </div>
     );
 };

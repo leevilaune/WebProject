@@ -113,17 +113,11 @@ const Orders = () => {
             </div>
 
             <div>
-                {orders.map((order, index) => (
-                    <React.Fragment key={order.order_number}>
+                {orders.map((order) => (
+                    <div key={order.order_number}>
                         <OrderItem order={order} />
-                        {index < orders.length - 1 && (
-                            <div>
-                                <p colSpan="6">
-                                    <hr />
-                                </p>
-                            </div>
-                        )}
-                    </React.Fragment>
+                        <hr />
+                    </div>
                 ))}
             </div>
         </div>
