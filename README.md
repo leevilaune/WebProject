@@ -1,5 +1,13 @@
 # Restaurant Webapp
 
+## Idea and target audience
+
+The application is an open source full stack takeout food order management system. Due to the open source nature users 
+can modify the application for their own needs.
+
+The application is made for starting restaurants who want to offer takeout option for their customers without paying
+the fees of third party platforms such as Wolt or Foodora. 
+
 ## Database schema
 
 ```mermaid
