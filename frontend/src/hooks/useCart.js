@@ -3,8 +3,19 @@ import { useState, useEffect } from 'react';
 export const useCart = () => {
   const [cart, setCart] = useState(() => {
     const stored = localStorage.getItem("cart");
-    return stored ? JSON.parse(stored) : [];
+    if (!stored) return [];
+    try {
+      const parsed = JSON.parse(stored);
+      // Filter out any nulls
+      return parsed.filter(item => item !== null);
+    } catch {
+      return [];
+    }
   });
+
+  const removeFromCart = (productId) => {
+    setCart(prev => prev.filter(item => item?.product_id !== productId));
+  };
 
   const [showCart, setShowCart] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +25,6 @@ export const useCart = () => {
     try {
       localStorage.setItem("cart", JSON.stringify(cart));
     } catch (e) {
-    
       console.error("Failed to persist cart to localStorage", e);
     }
   }, [cart]);
@@ -48,6 +58,7 @@ export const useCart = () => {
     closeModal,
     addToCart,
     toggleCart,
-    clearCart
+    clearCart,
+    removeFromCart,
   };
 };

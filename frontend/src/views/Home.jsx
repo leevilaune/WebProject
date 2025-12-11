@@ -15,7 +15,7 @@ const Home = () => {
   const allergens = useAllergens();
   const categories = [...new Set(products.map(p => p.category))];
 
-  const { cart, showCart, addToCart, toggleCart } = useCart();
+  const { cart, showCart, addToCart, toggleCart, removeFromCart } = useCart();
   const { toggleCategory, toggleAllergen, filterProducts } = useFilter();
 
   const navigate = useNavigate();
@@ -31,10 +31,8 @@ const Home = () => {
   const filteredProducts = filterProducts(products);
   const token = localStorage.getItem("token");
 
-  // Open ProductDialog
   const openOptionDialog = (product) => setOptionDialogProduct(product);
 
-  // Confirm options from ProductDialog
   const handleConfirmOptions = async (selectedOptionIds) => {
     if (!optionDialogProduct) return;
 
@@ -93,7 +91,6 @@ const Home = () => {
         />
       </section>
 
-      {/* Product options dialog */}
       {optionDialogProduct && (
         <div id="product-dialog-wrapper">
           <ProductDialog
@@ -105,31 +102,13 @@ const Home = () => {
         </div>
       )}
 
-      {/* Shopping cart button */}
       <footer id="cart-footer">
         <button
           id="shopping-cart-btn"
           onClick={toggleCart}
           aria-label={`Shopping cart (${cart.length})`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            style={{ verticalAlign: 'middle' }}
-          >
-            <circle cx="9" cy="21" r="1" />
-            <circle cx="20" cy="21" r="1" />
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          </svg>
-          <span style={{ marginLeft: 8 }}>({cart.length})</span>
+          <span>Cart ({cart.length})</span>
         </button>
 
         <div id="shopping-cart-dialog-wrapper">
@@ -138,6 +117,7 @@ const Home = () => {
             showCart={showCart}
             toggleCart={toggleCart}
             goToPayment={goToPayment}
+            removeFromCart={removeFromCart} // <-- pass removeFromCart
           />
         </div>
       </footer>

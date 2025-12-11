@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import getImageUrl from '../utils/getImageUrl';
 
-const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
+const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment, removeFromCart }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -35,6 +35,13 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
                     alt={item.name}
                   />
                 )}
+                <button
+                  className="delete-item-button"
+                  onClick={() => removeFromCart(item.product_id)}
+                  style={{ marginLeft: "0.5rem" }}
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>
