@@ -5,7 +5,7 @@
  * @apiVersion 1.0.0
  *
  * @apiDescription
- * Fetch a single product by ID, including its related **options** and **allergens**.
+ * Fetch a single product by its ID, including related **options** and **allergens**.
  *
  * @apiParam {Number} id Product ID.
  *
@@ -16,14 +16,14 @@
  * @apiSuccess {String} image_url Image URL or filename.
  * @apiSuccess {String} category Product category.
  * @apiSuccess {Boolean} default_product Whether this is a default product.
- * @apiSuccess {Object[]} options Attached options.
+ * @apiSuccess {Object[]} options List of options for the product.
  * @apiSuccess {Number} options.option_id Option ID.
  * @apiSuccess {String} options.name Option name.
  * @apiSuccess {String} options.description Option description.
- * @apiSuccess {Object[]} allergens Attached allergens.
+ * @apiSuccess {Object[]} allergens List of allergens for the product.
  * @apiSuccess {Number} allergens.allergen_id Allergen ID.
  * @apiSuccess {String} allergens.allergen_name Allergen name.
- * @apiSuccess {String} allergens.allergen_icon_url URL to allergen icon.
+ * @apiSuccess {String} allergens.allergen_icon_url URL of allergen icon.
  *
  * @apiSuccessExample {json} Success Response:
  * HTTP/1.1 200 OK

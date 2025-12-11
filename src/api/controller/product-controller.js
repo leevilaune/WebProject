@@ -60,6 +60,12 @@ const getProductById = async (req, res, next) => {
                 },
             ],
         });
+        if (!fetchedProduct) {
+            const error = new Error("Product not found");
+            error.status = 404;
+            next(error);
+            return;
+        }
         res.json(fetchedProduct);
     } catch (err) {
         next(err);
@@ -190,5 +196,5 @@ export {
     addProduct,
     putProduct,
     deleteProduct,
-    postProductWithoutImage
+    postProductWithoutImage,
 };
