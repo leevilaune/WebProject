@@ -5,7 +5,6 @@ export default function Register() {
     const { handleRegister } = useContext(AuthContext);
     const [form, setForm] = useState({
         username: "",
-        name: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -30,7 +29,6 @@ export default function Register() {
 
         const payload = {
             username: form.username,
-            name: form.name,
             email: form.email,
             password: form.password,
             phone_number: form.phone_number,
@@ -56,17 +54,6 @@ export default function Register() {
                     <input
                         name="username"
                         value={form.username}
-                        onChange={onChange}
-                        required
-                        style={{ width: "100%" }}
-                    />
-                </div>
-
-                <div style={{ marginBottom: 8 }}>
-                    <label>Full name</label>
-                    <input
-                        name="name"
-                        value={form.name}
                         onChange={onChange}
                         required
                         style={{ width: "100%" }}
