@@ -4,12 +4,26 @@
  * @apiGroup Product
  * @apiVersion 1.0.0
  *
- * @apiDescription Fetch a single product by its ID.  
- * Does **not** include options or allergens — only the base product data.
+ * @apiDescription
+ * Fetch a single product by ID, including its related **options** and **allergens**.
  *
  * @apiParam {Number} id Product ID.
  *
- * @apiSuccess {Object} product The fetched product.
+ * @apiSuccess {Number} product_id Product ID.
+ * @apiSuccess {String} name Product name.
+ * @apiSuccess {Number} price Product price.
+ * @apiSuccess {String} description Product description.
+ * @apiSuccess {String} image_url Image URL or filename.
+ * @apiSuccess {String} category Product category.
+ * @apiSuccess {Boolean} default_product Whether this is a default product.
+ * @apiSuccess {Object[]} options Attached options.
+ * @apiSuccess {Number} options.option_id Option ID.
+ * @apiSuccess {String} options.name Option name.
+ * @apiSuccess {String} options.description Option description.
+ * @apiSuccess {Object[]} allergens Attached allergens.
+ * @apiSuccess {Number} allergens.allergen_id Allergen ID.
+ * @apiSuccess {String} allergens.allergen_name Allergen name.
+ * @apiSuccess {String} allergens.allergen_icon_url URL to allergen icon.
  *
  * @apiSuccessExample {json} Success Response:
  * HTTP/1.1 200 OK
@@ -21,6 +35,25 @@
  *   "image_url": "chicken_bowl.jpg",
  *   "category": "bowl",
  *   "default_product": true,
+ *   "options": [
+ *     {
+ *       "option_id": 3,
+ *       "name": "Extra Chicken",
+ *       "description": "Add 50g more chicken"
+ *     }
+ *   ],
+ *   "allergens": [
+ *     {
+ *       "allergen_id": 1,
+ *       "allergen_name": "Gluten",
+ *       "allergen_icon_url": "/icons/gluten.png"
+ *     },
+ *     {
+ *       "allergen_id": 2,
+ *       "allergen_name": "Milk",
+ *       "allergen_icon_url": "/icons/milk.png"
+ *     }
+ *   ],
  *   "createdAt": "2025-12-01T12:44:22.000Z",
  *   "updatedAt": "2025-12-01T12:44:22.000Z"
  * }

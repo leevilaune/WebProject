@@ -40,9 +40,28 @@ const getAllProducts = async (req, res, next) => {
 
 const getProductById = async (req, res, next) => {
     try {
-        const fetchedProduct = await product.findByPk(Number(req.params.id));
+        const fetchedProduct = await product.findByPk(Number(req.params.id), {
+            include: [
+                {
+                    model: option,
+                    as: "options",
+                    attributes: ["option_id", "name", "description"],
+                    through: { attributes: [] },
+                },
+                {
+                    model: allergen,
+                    as: "allergens",
+                    attributes: [
+                        "allergen_id",
+                        "allergen_name",
+                        "allergen_icon_url",
+                    ],
+                    through: { attributes: [] },
+                },
+            ],
+        });
         res.json(fetchedProduct);
-    } catch (err){
+    } catch (err) {
         next(err);
     }
 };
@@ -171,6 +190,5 @@ export {
     addProduct,
     putProduct,
     deleteProduct,
-    postProductWithoutImage,
-
+    postProductWithoutImage
 };
