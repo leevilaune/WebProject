@@ -7,6 +7,12 @@ const Orders = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const [userName, setUserName] = useState("");
+    const [userRole, setUserRole] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userPhone, setUserPhone] = useState("");
+    const [userAddress, setUserAddress] = useState("");
+
     const token = localStorage.getItem("token");
 
     useEffect(() => {
@@ -26,6 +32,22 @@ const Orders = () => {
                 const userData = await userRes.json();
 
                 const userId = userData?.user?.user_id;
+                console.log(`${API_BASE}/api/v1/user/:${userId}`);
+
+                const userInfo = await fetch(
+                    `${API_BASE}/api/v1/user/${userId}`,
+                    {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
+                if (!userInfo.ok) throw new Error("failed to fetch user info");
+                const userInfoData = await userInfo.json();
+
+                setUserName(userInfoData.username);
+                setUserRole(userInfoData.role);
+                setUserEmail(userInfoData.email);
+                setUserPhone(userInfoData.phone_number);
+                setUserAddress(userInfoData.address);
 
                 const ordersRes = await fetch(
                     `${API_BASE}/api/v1/order/byuser/${userId}`,
@@ -62,6 +84,33 @@ const Orders = () => {
     return (
         <div>
             <h2>My Orders</h2>
+            <div>
+                {userName && (
+                    <p>
+                        <strong>username:</strong> {userName}
+                    </p>
+                )}
+                {userEmail && (
+                    <p>
+                        <strong>email:</strong> {userEmail}
+                    </p>
+                )}
+                {userPhone && (
+                    <p>
+                        <strong>phone:</strong> {userPhone}
+                    </p>
+                )}
+                {userAddress && (
+                    <p>
+                        <strong>address:</strong> {userAddress}
+                    </p>
+                )}
+                {userRole && (
+                    <p>
+                        <strong>role:</strong> {userRole}
+                    </p>
+                )}
+            </div>
 
             <table>
                 <thead>
