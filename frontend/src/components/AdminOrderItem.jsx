@@ -93,6 +93,11 @@ const AdminOrderItem = ({ order, onDelete, onModify }) => {
         order.products.map((prod) => (
             <div key={prod.product_id} className="product-item">
                 <img
+                    style={{
+                        width: "50px",
+                        height: "50px",
+                        objectFit: "cover",
+                    }}
                     src={getImageUrl(prod.image_url)}
                     alt={prod.name}
                     className="product-img"
@@ -122,9 +127,15 @@ const AdminOrderItem = ({ order, onDelete, onModify }) => {
                             {prod.allergens.map((a) => (
                                 <span
                                     key={a.allergen_id}
+                                    q
                                     className="allergen-item"
                                 >
                                     <img
+                                        style={{
+                                            width: "50px",
+                                            height: "50px",
+                                            objectFit: "cover",
+                                        }}
                                         src={getImageUrl(a.allergen_icon_url)}
                                         alt={a.allergen_name}
                                         className="allergen-img"

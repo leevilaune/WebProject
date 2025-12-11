@@ -10,6 +10,11 @@ const AdminProductCard = ({ product, onDelete, onModify }) => {
     return (
         <div>
             <img
+                style={{
+                    width: "50px",
+                    height: "50px",
+                    objectFit: "cover",
+                }}
                 src={getImageUrl(product.image_url)}
                 alt={product.name}
                 onError={(e) => (e.target.style.display = "none")}
@@ -43,6 +48,11 @@ const AdminProductCard = ({ product, onDelete, onModify }) => {
                         {allergens.map((a) => (
                             <div key={a.allergen_id}>
                                 <img
+                                    style={{
+                                        width: "50px",
+                                        height: "50px",
+                                        objectFit: "cover",
+                                    }}
                                     src={getImageUrl(a.allergen_icon_url)}
                                     alt={a.allergen_name}
                                     onError={(e) =>
