@@ -3,7 +3,7 @@
  * @apiName GetAllOrders
  * @apiGroup Order
  * @apiVersion 1.0.0
- * @apiPermission authenticated
+ * @apiPermission admin
  *
  * @apiDescription Returns all orders with their associated products, including options and allergens.
  *

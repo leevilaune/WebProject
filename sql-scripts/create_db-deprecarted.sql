@@ -28,7 +28,9 @@ CREATE TABLE `order` (
     price DECIMAL(8,2),
     timestamp BIGINT,
     user_id INT,
+    status VARCHAR,
     FOREIGN KEY (user_id) REFERENCES user(user_id)
+
 );
 
 CREATE TABLE product (

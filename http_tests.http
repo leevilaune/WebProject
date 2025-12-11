@@ -1,5 +1,5 @@
-@baseUrl = https://test.onesnzeroes.dev/api/v1
-//@baseUrl = http://localhost:3000/api/v1
+//@baseUrl = https://test.onesnzeroes.dev/api/v1
+@baseUrl = http://localhost:3000/api/v1
 //@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6InVzZXIzIiwiZW1haWwiOiJlbWFpbDNAcHJvdmlkZXIuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjU0NzIzODAsImV4cCI6MTc2NTU1ODc4MH0.zMhfPSvvRLJoXtFJJBx3OQ6aHPoBFZqqkWlj4ZcplOg
 
@@ -94,7 +94,7 @@ Authorization: Bearer {{token}}
 ### Get me with valid token
 GET {{baseUrl}}/auth/me
 Accept: application/json
-Authorization: Bearer {{token}}
+Authorization: Bearer {{adminToken}}
 
 ### Get user by id
 GET {{baseUrl}}/user/4
@@ -127,6 +127,16 @@ Accept: application/json
 {
   "username": "user3",
   "password": "salis"
+}
+
+### Put user
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "illorder3",
+  "password": "fuckme?3"
 }
 
 ### Get orders
@@ -217,3 +227,24 @@ Content-Type: image/jpeg
 
 < cheeseburger_test.jpg
 ------BOUNDARY--
+
+### Get allergens
+GET {{baseUrl}}/misc/allergen
+Content-Type: application/json
+
+### Get options
+GET {{baseUrl}}/misc/option
+Content-Type: application/json
+
+### Post user
+POST {{baseUrl}}/user/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "testuser",
+  "password": "user",
+  "email": "user@email.com",
+  "phone_number": "+35812345678",
+  "address": "Street 12, Helsinki"
+}

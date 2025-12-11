@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { user } from "../model/index.js";
+import { validationResult } from "express-validator";
 
 const findAllUsers = async (req, res, next) => {
     if (req.user.role != "admin") {
@@ -42,6 +43,10 @@ const getUserById = async (req, res, next) => {
 };
 
 const addUser = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     console.log(req.body);
     try {
         if (req.body.role) {
@@ -61,4 +66,36 @@ const addUser = async (req, res, next) => {
     }
 };
 
-export { findAllUsers, getUserById, addUser };
+const putUser = async (req, res, next) => {
+    const userId = Number(req.params.id);
+
+    if (req.user.role !== "admin" && req.user.user_id !== userId) {
+        const error = new Error("Forbidden");
+        error.status = 403;
+        next(error);
+        return;
+    }
+
+    try {
+        if (req.body.role && req.user.role !== "admin") {
+            const error = new Error("UNAUTHORIZED: cannot update 'role'");
+            error.status = 401;
+            next(error);
+            return;
+        }
+
+        if (req.body.password) {
+            req.body.password = bcrypt.hashSync(req.body.password, 10);
+        }
+
+        const updated_user = await user.update(req.body, {
+            where: { id: userId },
+        });
+
+        res.json({ updated: updated_user });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export { findAllUsers, getUserById, addUser, putUser };

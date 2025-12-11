@@ -28,6 +28,11 @@ const order = sequelize.define("order", {
             model: user,
             key: 'user_id',
         }
+    },
+    status:{
+        'type': DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "received"
     }
 },{tableName: "order"});
 
