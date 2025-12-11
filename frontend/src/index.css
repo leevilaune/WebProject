@@ -46,8 +46,42 @@ h2 {
 }
 
 /* filters button */
-h2 + button {
+#filter-toggle-btn {
     margin-left: 10px;
+}
+
+#filter-menu {
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #ddd;
+}
+
+#filter-menu-categories ul {
+    /* display: inline-flex; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    max-width: 100%;
+
+    /* margin: 10px; */
+    padding: 10px;
+}
+
+#filter-menu-categories ul li {
+    /* width: 60px; */
+    width: 80%;
+    border: none;
+    margin: 5px 0;
+    /* display: inline; */
+}
+
+#filter-menu-categories ul li button {
+    width: 100%;
+}
+
+#filter-menu-allergens,
+#filter-menu-close {
+    margin: 0 0 10px 10px;
 }
 
 /* shopping cart button */
@@ -81,6 +115,7 @@ ul li .product-image {
 
 .add-to-cart-button {
     margin: 5px;
+    width: 200px;
 }
 
 .product-info h4 {
@@ -169,8 +204,8 @@ dialog img {
 ----- login and register page -----
 ----------------------------------- */
 
-.login-form,
-.register-form {
+#login-container,
+#register-container {
     width: 80%;
     max-width: 500px;
     margin: 30px auto;
@@ -181,28 +216,28 @@ dialog img {
     /* display: flex; */
 }
 
-.login-form h2,
-.register-form h2 {
+#login-container h2,
+#register-container h2 {
     font-size: 36px;
     margin-bottom: 15px;
     text-align: center;
 }
 
-.login-form form label,
-.register-form form label {
+#login-container form label,
+#register-container form label {
     font-size: 20px;
     margin: 5px 0;
 }
 
-.login-form form input,
-.register-form form input {
+#login-container form input,
+#register-container form input {
     margin: 5px 0;
     height: 30px;
     width: 100%;
 }
 
-.login-form button,
-.register-form button {
+#login-container button,
+#register-container button {
     font-size: 20px;
     padding: 5px 20px;
     margin: 10px 0;
