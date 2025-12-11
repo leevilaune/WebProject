@@ -109,35 +109,23 @@ const Orders = () => {
                         <strong>role:</strong> {userRole}
                     </p>
                 )}
+                <br />
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order #</th>
-                        <th>Status</th>
-                        <th>Delivery Address</th>
-                        <th>Price</th>
-                        <th>Timestamp</th>
-                        <th>Products</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {orders.map((order, index) => (
-                        <React.Fragment key={order.order_number}>
-                            <OrderItem order={order} />
-                            {index < orders.length - 1 && (
-                                <tr>
-                                    <td colSpan="6">
-                                        <hr />
-                                    </td>
-                                </tr>
-                            )}
-                        </React.Fragment>
-                    ))}
-                </tbody>
-            </table>
+            <div>
+                {orders.map((order, index) => (
+                    <React.Fragment key={order.order_number}>
+                        <OrderItem order={order} />
+                        {index < orders.length - 1 && (
+                            <div>
+                                <p colSpan="6">
+                                    <hr />
+                                </p>
+                            </div>
+                        )}
+                    </React.Fragment>
+                ))}
+            </div>
         </div>
     );
 };

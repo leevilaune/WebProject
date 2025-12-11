@@ -50,14 +50,25 @@ const OrderItem = ({ order }) => {
         ));
 
     return (
-        <tr>
-            <td>{order.order_number}</td>
-            <td className="status-cap">{order.status}</td>
-            <td>{order.delivery_address}</td>
-            <td>€{order.price.toFixed(2)}</td>
-            <td>{formatTimestamp(order.timestamp)}</td>
-            <td>{renderProducts()}</td>
-        </tr>
+        <div>
+            <p>
+                <strong>Order Number:</strong> {order.order_number}
+            </p>
+            <p className="status-cap">
+                <strong>Status:</strong> {order.status}
+            </p>
+            <p>
+                <strong>Address:</strong> {order.delivery_address}
+            </p>
+            <p>
+                <strong>Price:</strong> {order.price.toFixed(2)}€
+            </p>
+            <p>
+                <strong>Timestamp:</strong> {formatTimestamp(order.timestamp)}
+            </p>
+            <br />
+            <p>{renderProducts()}</p>
+        </div>
     );
 };
 
