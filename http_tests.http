@@ -1,12 +1,36 @@
 //@baseUrl = https://test.onesnzeroes.dev/api/v1
 @baseUrl = http://localhost:3000/api/v1
 //@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo2LCJ1c2VybmFtZSI6InVzZXIiLCJlbWFpbCI6InVzZXJAZW1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjUyMjQ0MTAsImV4cCI6MTc2NTMxMDgxMH0.54KNNJLDmu4_pC1Q-PS2iMozKUJ2jRo_uZ1Qs1ug_mw
-@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6ImFsZWtzaSIsImVtYWlsIjoiZW1haWwzQHByb3ZpZGVyLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTIyNDgyOCwiZXhwIjoxNzY1MzExMjI4fQ.nzwywVSiB2AzP9AKIkR6C8ppRxwyCBVB-pPlKaGRl9E
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6InVzZXIzIiwiZW1haWwiOiJlbWFpbDNAcHJvdmlkZXIuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjU0NzIzODAsImV4cCI6MTc2NTU1ODc4MH0.zMhfPSvvRLJoXtFJJBx3OQ6aHPoBFZqqkWlj4ZcplOg
 
-### Get all products
 GET {{baseUrl}}/product/all
 Accept: application/json
+### Post order
+POST {{baseUrl}}/order
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "price": 8.99,
+  "delivery_address":"delivery address",
+  "user_id": 7,
+  "product_ids": [2,18,19]
+}
+
+### Get me with invalid token
+GET {{baseUrl}}/auth/me
+Accept: application/json
+Authorization: Bearer {{token}}
+
+### Post login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "user3",
+  "password": "salis"
+}
 
 ### Add a new product
 POST {{baseUrl}}/product/add
@@ -23,6 +47,10 @@ Authorization: Bearer {{token}}
   "allergen_ids": [1,2],
   "default_product": true
 }
+### Get orders by user id
+GET {{baseUrl}}/order/byuser/7
+Accept: application/json
+Authorization: Bearer {{token}}
 
 ### broken add a new product
 POST {{baseUrl}}/product/add
@@ -50,14 +78,6 @@ Content-Type: application/json
 ### Delete a product (not implemented)
 DELETE {{baseUrl}}/product/1
 
-### Post login
-POST {{baseUrl}}/auth/login
-Content-Type: application/json
-
-{
-  "username": "aleksi",
-  "password": "aleksi"
-}
 
 ### Get me
 GET {{baseUrl}}/auth/me
@@ -92,43 +112,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "illorder7",
-  "password": "?6",
-  "email": "email3provider.com"
-}
-
-### Post user
-POST {{baseUrl}}/user/register
-Content-Type: application/json
-Accept: application/json
-
-{
-  "username": "user",
-  "password": "user",
-  "email": "user@email.com"
-}
-
-### Get orders by user id
-GET {{baseUrl}}/order/byuser/6
-Accept: application/json
-Authorization: Bearer {{token}}
-
-### Put status
-PUT {{baseUrl}}/order/status/2
-Content-Type: application/json
-Authorization: Bearer {{adminToken}}
-
-{
-  "status": "preparing"
-}
-
-### Post login
-POST {{baseUrl}}/auth/login
-Content-Type: application/json
-
-{
-  "username": "user",
-  "password": "user"
+  
+  "username": "user3",
+  "password": "salis",
+  "email": "email3@provider.com"
+  
 }
 
 ### Post login
@@ -137,8 +125,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "illorder3",
-  "password": "fuckme?3"
+  "username": "user3",
+  "password": "salis"
 }
 
 ### Put user
@@ -165,8 +153,8 @@ Authorization: Bearer {{token}}
 {
   "price": 8.99,
   "delivery_address":"delivery address",
-  "user_id": 6,
-  "product_ids": [2,5]
+  "user_id": 7,
+  "product_ids": [7,6]
 }
 
 ### Put order

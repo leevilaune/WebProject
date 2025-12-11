@@ -60,7 +60,7 @@ const addUser = async (req, res, next) => {
         req.body.role = "user";
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const createdUser = await user.create(req.body);
-        res.json({ message: "User created", id: createdUser.id });
+        res.json({ message: "User created", id: createdUser.user_id });
     } catch (err) {
         next(err);
     }
