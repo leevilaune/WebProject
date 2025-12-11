@@ -1,0 +1,267 @@
+/* ------------------
+----- All pages -----
+--------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    background-color: #eee;
+}
+
+nav {
+    /* background-color: #d2ac79ff; */
+    background-color: #5e976bff;
+    /* display: "flex", gap: "1rem", padding: "1rem" */
+}
+
+nav a {
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: black;
+    background-color: #4ca9f5ff;
+}
+
+button {
+    padding: 10px;
+    background: #4ca9f5ff;
+    border-radius: 5px;
+}
+
+/* ------------------
+----- Main page -----
+--------------------- */
+
+h2 {
+    margin: 10px;
+}
+
+/* filters button */
+h2 + button {
+    margin-left: 10px;
+}
+
+/* shopping cart button */
+ul + button {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    /* z-index: 1000; */
+}
+
+ul {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+ul li {
+    border: 2px solid #555;
+    border-radius: 5px;
+    margin: 10px;
+    list-style-type: none;
+}
+
+ul li .product-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: flex;
+    object-position: center;
+    margin: 5px;
+}
+
+.add-to-cart-button {
+    margin: 5px;
+}
+
+.product-info h4 {
+    font-size: 20px;
+    margin: 5px;
+}
+
+.product-description,
+.product-price {
+    margin: 5px;
+}
+
+dialog[open] {
+    position: fixed;
+    inset: 0;
+    margin: 10% auto;
+    width: min(500px, 90vw);
+    max-height: 90vh;
+    border-radius: 5px;
+}
+
+dialog[open]::backdrop {
+    background: rgba(0, 0, 0, 0.35);
+    /* backdrop-filter: blur(2px); */
+}
+
+dialog img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+#add-product-header,
+#add-product-image,
+#add-product-price,
+#add-product-options,
+#add-product-actions {
+    margin: 10px 5px;
+}
+
+#add-product-image img {
+    width: 300px;
+    height: 300px;
+}
+
+/* #add-product {
+    position: relative;
+} */
+
+#add-product button {
+    margin: 5px 5px 0 0;
+}
+
+.cart-header {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.cart-item {
+    padding: 5px;
+}
+
+.item-info {
+    margin-bottom: 5px;
+}
+
+.shopping-cart-dialog {
+    position: relative;
+}
+
+.close-cart-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.login-prompt {
+    margin: 10px;
+}
+
+.payment-button {
+    margin: 0 0 10px 10px;
+}
+
+/* --------------------------------
+----- login and register page -----
+----------------------------------- */
+
+.login-form,
+.register-form {
+    width: 80%;
+    max-width: 500px;
+    margin: 30px auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    /* display: flex; */
+}
+
+.login-form h2,
+.register-form h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.login-form form label,
+.register-form form label {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.login-form form input,
+.register-form form input {
+    margin: 5px 0;
+    height: 30px;
+    width: 100%;
+}
+
+.login-form button,
+.register-form button {
+    font-size: 20px;
+    padding: 5px 20px;
+    margin: 10px 0;
+    width: 101%;
+}
+
+/* ---------------------
+----- payment page -----
+------------------------ */
+
+#payment-view {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    font-size: 20px;
+}
+
+#payment-view h2,
+#payment-view h3 {
+    margin: 5px 0;
+}
+
+#payment-view p {
+    margin: 5px 0;
+}
+
+#payment-view button {
+    width: 40%;
+    max-width: 200px;
+    /* margin: 0 5%; */
+    margin-right: 8%;
+}
+
+#payment-view li {
+    margin: 3px 0 3px 23px;
+    list-style-type: decimal;
+    border: none;
+}
+
+/* -----------------------
+----- my orders page -----
+-------------------------- */
+
+.my-orders {
+    font-size: 20px;
+}
+
+.my-orders tr {
+    border: 2px solid black;
+    background-color: #888;
+}
+
+.my-orders td img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    display: flex;
+    object-position: center;
+}
