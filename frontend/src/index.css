@@ -58,21 +58,16 @@ h2 {
 }
 
 #filter-menu-categories ul {
-    /* display: inline-flex; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     max-width: 100%;
-
-    /* margin: 10px; */
     padding: 10px;
 }
 
 #filter-menu-categories ul li {
-    /* width: 60px; */
     width: 80%;
     border: none;
     margin: 5px 0;
-    /* display: inline; */
 }
 
 #filter-menu-categories ul li button {
@@ -84,12 +79,37 @@ h2 {
     margin: 0 0 10px 10px;
 }
 
-/* shopping cart button */
+#allergens-list img {
+    width: 50px;
+}
+
+#allergens-list ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 100%;
+    /* padding: 10px; */
+    margin-right: 10px;
+}
+
+#allergens-list li {
+    max-width: 100px;
+}
+
+.allergen-button {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.allergen-name {
+    min-width: 40px;
+    padding: 0 10px;
+    margin-bottom: 5px;
+}
+
 #shopping-cart-btn {
     position: fixed;
     right: 20px;
     top: 80px;
-    /* z-index: 1000; */
 }
 
 ul {
@@ -161,10 +181,6 @@ dialog img {
     height: 300px;
 }
 
-/* #add-product {
-    position: relative;
-} */
-
 #add-product button {
     margin: 5px 5px 0 0;
 }
@@ -177,6 +193,10 @@ dialog img {
 .cart-item {
     padding: 5px;
     position: relative;
+}
+
+.cart-items p {
+    margin-left: 10px;
 }
 
 .cart-item .delete-item-button {
@@ -293,6 +313,14 @@ dialog img {
     margin: 3px 0 3px 23px;
     list-style-type: decimal;
     border: none;
+}
+
+.payment-radio {
+    margin-bottom: 15px;
+}
+
+.payment-radio * {
+    font-size: 20px;
 }
 
 /* -----------------------
