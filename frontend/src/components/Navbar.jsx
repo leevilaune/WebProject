@@ -8,12 +8,13 @@ export default function Navbar() {
     return (
         <nav style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
             <Link to="/menu">Menu</Link>
-            <Link to="/payment">Payment</Link>
+
+            {user?.role === "user" && <Link to="/payment">Payment</Link>}
 
             {!user && <Link to="/login">Login</Link>}
             {!user && <Link to="/register">Register</Link>}
 
-            {user && <Link to="/orders">My Orders</Link>}
+            {user?.role === "user" && <Link to="/orders">My Orders</Link>}
 
             {user?.role === "admin" && (
                 <>
