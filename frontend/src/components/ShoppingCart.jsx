@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import getImageUrl from '../utils/getImageUrl'
+
 
 const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const ShoppingCart = ({ cart, showCart, toggleCart, goToPayment }) => {
         <ul>
           {cart.map((item, index) => (
             <li key={index}>
-              {item.name} {item.price}€
+              {item.name} {item.price}€ <img src={getImageUrl(item.image_url)} alt={item.name} />
             </li>
           ))}
         </ul>

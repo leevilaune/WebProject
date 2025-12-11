@@ -1,3 +1,5 @@
+import getImageUrl from '../utils/getImageUrl'
+
 const FilterMenu = ({ showFilter, toggleFilter, toggleCategory, toggleAllergens, 
     showAllergens, toggleAllergen,allergens,categories }) => {
   if (!showFilter) return null;
@@ -19,6 +21,8 @@ const FilterMenu = ({ showFilter, toggleFilter, toggleCategory, toggleAllergens,
                   <li key={a.allergen_id}>
                     <button onClick={() => toggleAllergen(a.allergen_name)}>
                       {a.allergen_name}
+                        <img src={getImageUrl(a.allergen_icon_url)} alt={a.allergen_name} />
+                      
                       </button>
                   </li>
                     ))}

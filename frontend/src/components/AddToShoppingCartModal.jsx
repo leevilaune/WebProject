@@ -1,4 +1,6 @@
 import React from "react";
+import getImageUrl from '../utils/getImageUrl'
+
 
 const Modal = ({ selectedProduct, showModal, closeModal, addToCart }) => {
   if (!showModal || !selectedProduct) return null;
@@ -7,6 +9,7 @@ const Modal = ({ selectedProduct, showModal, closeModal, addToCart }) => {
     <div>
       <h3>{selectedProduct.name}</h3>
       <p>{selectedProduct.description}</p>
+      <img src={getImageUrl(selectedProduct.image_url)} alt={selectedProduct.name} />
       <p>Price: {selectedProduct.price}€</p>
 
       {selectedProduct.options && selectedProduct.options.length > 0 && (
