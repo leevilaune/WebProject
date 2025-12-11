@@ -10,10 +10,17 @@ const AdminOrders = () => {
 
     const fetchOrders = async () => {
         setLoading(true);
+
+        if (!token) {
+            setOrders([]);
+            setLoading(false);
+            return;
+        }
+
         try {
             const res = await fetch(`${API_BASE}/api/v1/order/all`, {
                 headers: {
-                    Authorization: token ? `Bearer ${token}` : "",
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
@@ -32,8 +39,8 @@ const AdminOrders = () => {
     };
 
     useEffect(() => {
-        if (token) fetchOrders();
-    }, [token]);
+        fetchOrders();
+    }, []);
 
     if (!token) return <p>Log in to see orders</p>;
     if (loading) return <p>Loading orders...</p>;
@@ -52,6 +59,7 @@ const AdminOrders = () => {
                     <th>Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 {orders.length === 0 ? (
                     <tr>
@@ -62,7 +70,22 @@ const AdminOrders = () => {
                         <AdminOrderItem
                             key={order.order_number}
                             order={order}
-                            onRefresh={fetchOrders}
+                            onDelete={(order_number) =>
+                                setOrders((prev) =>
+                                    prev.filter(
+                                        (o) => o.order_number !== order_number
+                                    )
+                                )
+                            }
+                            onModify={(order_number, updatedFields) =>
+                                setOrders((prev) =>
+                                    prev.map((o) =>
+                                        o.order_number === order_number
+                                            ? { ...o, ...updatedFields }
+                                            : o
+                                    )
+                                )
+                            }
                         />
                     ))
                 )}

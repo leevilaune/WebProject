@@ -77,7 +77,7 @@ const Orders = () => {
     }, [token]);
 
     if (!token) return <p>log in to see your orders</p>;
-    if (loading) return <p>Loading your orders...</p>;
+    if (loading) return <p>loading your orders...</p>;
     if (error) return <p>{error}</p>;
     if (orders.length === 0) return <p>no orders found.</p>;
 

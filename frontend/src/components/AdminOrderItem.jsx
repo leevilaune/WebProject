@@ -3,7 +3,7 @@ import getImageUrl from "../utils/getImageUrl";
 import formatTimestamp from "../utils/formatTimestamp";
 import { API_BASE } from "../config/api";
 
-const AdminOrderItem = ({ order }) => {
+const AdminOrderItem = ({ order, onDelete, onModify }) => {
     const [editing, setEditing] = useState(false);
     const [newAddress, setNewAddress] = useState(order.delivery_address);
     const [status, setStatus] = useState(order.status || "received");
@@ -11,10 +11,9 @@ const AdminOrderItem = ({ order }) => {
 
     const token = localStorage.getItem("token");
 
-    // use shared formatTimestamp and getImageUrl utils
-
     const handleDelete = async () => {
         if (!token) return alert("Login first!");
+
         if (!window.confirm("Are you sure you want to delete this order?"))
             return;
 
@@ -26,7 +25,10 @@ const AdminOrderItem = ({ order }) => {
                     headers: { Authorization: `Bearer ${token}` },
                 }
             );
+
             if (!res.ok) throw new Error("Delete failed");
+
+            onDelete(order.order_number);
             setStatusMessage("Deleted successfully");
         } catch (err) {
             console.error(err);
@@ -36,6 +38,7 @@ const AdminOrderItem = ({ order }) => {
 
     const handleModify = async () => {
         if (!token) return alert("Login first!");
+
         try {
             const res = await fetch(
                 `${API_BASE}/api/v1/order/${order.order_number}`,
@@ -48,7 +51,10 @@ const AdminOrderItem = ({ order }) => {
                     body: JSON.stringify({ delivery_address: newAddress }),
                 }
             );
+
             if (!res.ok) throw new Error("Modify failed");
+
+            onModify(order.order_number, { delivery_address: newAddress });
             setStatusMessage("Modified successfully");
             setEditing(false);
         } catch (err) {
@@ -59,6 +65,7 @@ const AdminOrderItem = ({ order }) => {
 
     const handleStatusUpdate = async () => {
         if (!token) return alert("Login first!");
+
         try {
             const res = await fetch(
                 `${API_BASE}/api/v1/order/status/${order.order_number}`,
@@ -71,7 +78,10 @@ const AdminOrderItem = ({ order }) => {
                     body: JSON.stringify({ status }),
                 }
             );
+
             if (!res.ok) throw new Error("Status update failed");
+
+            onModify(order.order_number, { status });
             setStatusMessage("Status updated");
         } catch (err) {
             console.error(err);
@@ -118,9 +128,6 @@ const AdminOrderItem = ({ order }) => {
                                         src={getImageUrl(a.allergen_icon_url)}
                                         alt={a.allergen_name}
                                         className="allergen-img"
-                                        onError={(e) =>
-                                            (e.target.style.display = "none")
-                                        }
                                     />
                                     {a.allergen_name}
                                 </span>
@@ -134,6 +141,7 @@ const AdminOrderItem = ({ order }) => {
     return (
         <tr>
             <td>{order.order_number}</td>
+
             <td>
                 {editing ? (
                     <input
@@ -145,10 +153,15 @@ const AdminOrderItem = ({ order }) => {
                     order.delivery_address
                 )}
             </td>
+
             <td>€{order.price.toFixed(2)}</td>
+
             <td>{formatTimestamp(order.timestamp)}</td>
+
             <td>{order.user_id}</td>
+
             <td>{renderProducts()}</td>
+
             <td>
                 <select
                     value={status}
@@ -158,16 +171,14 @@ const AdminOrderItem = ({ order }) => {
                     <option value="preparing">Preparing</option>
                     <option value="completed">Completed</option>
                 </select>
-                <button
-                    className="update-status-btn"
-                    onClick={handleStatusUpdate}
-                >
-                    Update Status
-                </button>
+
+                <button onClick={handleStatusUpdate}>Update</button>
+
                 {statusMessage && (
                     <div className="status-message">{statusMessage}</div>
                 )}
             </td>
+
             <td>
                 {editing ? (
                     <>
