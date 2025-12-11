@@ -78,7 +78,7 @@ const PaymentView = () => {
   };
 
   if (loadingUser) return <p>Loading user info...</p>;
-
+   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
   return (
     <div id="payment-view">
       <h2>Payment</h2>
@@ -148,6 +148,10 @@ const PaymentView = () => {
             Bank payment
           </label>
         </div>
+      </div>
+
+        <div id="payment-total" style={{ marginTop: "1rem", fontWeight: "bold" }}>
+        Total: {totalPrice}€
       </div>
 
       {error && <p className="payment-error" style={{ color: "red" }}>{error}</p>}
