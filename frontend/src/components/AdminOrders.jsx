@@ -66,27 +66,36 @@ const AdminOrders = () => {
                         <td colSpan="8">No orders found</td>
                     </tr>
                 ) : (
-                    orders.map((order) => (
-                        <AdminOrderItem
-                            key={order.order_number}
-                            order={order}
-                            onDelete={(order_number) =>
-                                setOrders((prev) =>
-                                    prev.filter(
-                                        (o) => o.order_number !== order_number
+                    orders.map((order, index) => (
+                        <React.Fragment key={order.order_number}>
+                            <AdminOrderItem
+                                order={order}
+                                onDelete={(order_number) =>
+                                    setOrders((prev) =>
+                                        prev.filter(
+                                            (o) =>
+                                                o.order_number !== order_number
+                                        )
                                     )
-                                )
-                            }
-                            onModify={(order_number, updatedFields) =>
-                                setOrders((prev) =>
-                                    prev.map((o) =>
-                                        o.order_number === order_number
-                                            ? { ...o, ...updatedFields }
-                                            : o
+                                }
+                                onModify={(order_number, updatedFields) =>
+                                    setOrders((prev) =>
+                                        prev.map((o) =>
+                                            o.order_number === order_number
+                                                ? { ...o, ...updatedFields }
+                                                : o
+                                        )
                                     )
-                                )
-                            }
-                        />
+                                }
+                            />
+                            {index < orders.length - 1 && (
+                                <tr>
+                                    <td colSpan="8">
+                                        <hr />
+                                    </td>
+                                </tr>
+                            )}
+                        </React.Fragment>
                     ))
                 )}
             </tbody>

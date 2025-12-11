@@ -5,9 +5,16 @@ import formatTimestamp from "../utils/formatTimestamp";
 const OrderItem = ({ order }) => {
     const renderProducts = () =>
         order.products.map((prod) => (
-            <div key={prod.product_id} className="product-row">
+            <div
+                key={prod.product_id}
+                style={{ display: "flex", gap: "1rem", marginBottom: "0.5rem" }}
+            >
                 <img
-                    className="product-img"
+                    style={{
+                        width: "50px",
+                        height: "50px",
+                        objectFit: "cover",
+                    }}
                     src={getImageUrl(prod.image_url)}
                     alt={prod.name}
                     onError={(e) => (e.target.style.display = "none")}
@@ -17,7 +24,27 @@ const OrderItem = ({ order }) => {
                     <br />
                     <em>{prod.category}</em>
                     <br />
-                    {prod.description}
+                    {prod.description && (
+                        <span>
+                            {prod.description}
+                            <br />
+                        </span>
+                    )}
+                    {prod.options && prod.options.length > 0 && (
+                        <div>
+                            <strong>Options:</strong>
+                            <ul
+                                style={{
+                                    margin: "0.25rem 0",
+                                    paddingLeft: "1rem",
+                                }}
+                            >
+                                {prod.options.map((opt) => (
+                                    <li key={opt.option_id}>{opt.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
         ));

@@ -32,7 +32,6 @@ const Orders = () => {
                 const userData = await userRes.json();
 
                 const userId = userData?.user?.user_id;
-                console.log(`${API_BASE}/api/v1/user/:${userId}`);
 
                 const userInfo = await fetch(
                     `${API_BASE}/api/v1/user/${userId}`,
@@ -125,8 +124,17 @@ const Orders = () => {
                 </thead>
 
                 <tbody>
-                    {orders.map((order) => (
-                        <OrderItem key={order.order_number} order={order} />
+                    {orders.map((order, index) => (
+                        <React.Fragment key={order.order_number}>
+                            <OrderItem order={order} />
+                            {index < orders.length - 1 && (
+                                <tr>
+                                    <td colSpan="6">
+                                        <hr />
+                                    </td>
+                                </tr>
+                            )}
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
