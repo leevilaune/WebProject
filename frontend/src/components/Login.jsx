@@ -22,34 +22,32 @@ export default function Login() {
     };
 
     return (
-        <div style={{ maxWidth: 420, margin: "2rem auto" }}>
+        <div id="login-container">
             <h2>Login</h2>
-            <form onSubmit={onSubmit}>
-                <div style={{ marginBottom: 8 }}>
-                    <label>Username</label>
+            <form id="login-form" onSubmit={onSubmit}>
+                <div id="login-field-username">
+                    <label htmlFor="login-username">Username</label>
                     <input
+                        id="login-username"
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                <div style={{ marginBottom: 8 }}>
-                    <label>Password</label>
+                <div id="login-field-password">
+                    <label htmlFor="login-password">Password</label>
                     <input
+                        id="login-password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        style={{ width: "100%" }}
                     />
                 </div>
 
-                {error && (
-                    <div style={{ color: "red", marginBottom: 8 }}>{error}</div>
-                )}
+                {error && <div id="login-error">{error}</div>}
 
                 <button type="submit" disabled={loading}>
                     {loading ? "Logging in..." : "Login"}
