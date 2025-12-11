@@ -15,8 +15,9 @@ Authorization: Bearer {{token}}
   "price": 8.99,
   "delivery_address":"delivery address",
   "user_id": 7,
-  "product_ids": [10,11]
+  "product_ids": [2,18,19]
 }
+
 ### Get me with invalid token
 GET {{baseUrl}}/auth/me
 Accept: application/json

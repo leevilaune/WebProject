@@ -6,11 +6,11 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Logout from "./components/Logout";
 import PaymentView from "./components/PaymentView";
-import Home from "./views/Home";
 import Orders from "./components/Orders";
 import AdminAddProduct from "./components/AdminAddProduct";
 import AdminEditProduct from "./components/AdminEditProduct";
 import AdminOrders from "./components/AdminOrders";
+import Menu from "./components/Menu"; // <-- import your Menu component
 
 export default function App() {
     return (
@@ -19,29 +19,29 @@ export default function App() {
                 <Navbar />
 
                 <Routes>
-                    <Route path="/menu" element={<Home />} />
+                    {/* User routes */}
+                    <Route path="/menu" element={<Menu />} />
                     <Route path="/payment" element={<PaymentView />} />
+                    <Route path="/orders" element={<Orders />} />
+
+                    {/* Auth routes */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/logout" element={<Logout />} />
 
-                    <Route>
-                        <Route path="/orders" element={<Orders />} />
-                    </Route>
+                    {/* Admin routes */}
+                    <Route
+                        path="/admin/add-product"
+                        element={<AdminAddProduct />}
+                    />
+                    <Route
+                        path="/admin/manage-products"
+                        element={<AdminEditProduct />}
+                    />
+                    <Route path="/admin/orders" element={<AdminOrders />} />
 
-                    <Route>
-                        <Route
-                            path="/admin/add-product"
-                            element={<AdminAddProduct />}
-                        />
-                        <Route
-                            path="/admin/manage-products"
-                            element={<AdminEditProduct />}
-                        />
-                        <Route path="/admin/orders" element={<AdminOrders />} />
-                    </Route>
-
-                    <Route path="*" element={<Home />} />
+                    {/* Fallback route */}
+                    <Route path="*" element={<Menu />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
