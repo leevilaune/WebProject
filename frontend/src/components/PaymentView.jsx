@@ -79,34 +79,42 @@ const PaymentView = () => {
   if (loadingUser) return <p>Loading user info...</p>;
 
   return (
-    <div>
+    <div id="payment-view">
       <h2>Payment</h2>
 
-      <p>Name: {userInfo?.username || "N/A"}</p>
-      <p>Email: {userInfo?.email || "N/A"}</p>
-      <p>Address: {userInfo?.address || "N/A"}</p>
+      <div id="payment-user-info">
+        <p className="payment-username">Name: {userInfo?.username || "N/A"}</p>
+        <p className="payment-email">Email: {userInfo?.email || "N/A"}</p>
+        <p className="payment-address">Address: {userInfo?.address || "N/A"}</p>
+      </div>
 
-      <h3>Items</h3>
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <ul>
-          {cart.map((item, i) => (
-            <li key={i}>
-              {item.name} - {item.price}€
-            </li>
-          ))}
-        </ul>
-      )}
+      <div id="payment-items">
+        <h3>Items</h3>
+        {cart.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          <ul className="payment-cart-list">
+            {cart.map((item, i) => (
+              <li key={i} className="payment-cart-item">
+                {item.name} - {item.price}€
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
-      <p>Payment methods</p>
+      <div id="payment-methods">
+        <p>Payment methods</p>
+      </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="payment-error" style={{ color: "red" }}>{error}</p>}
 
-      <button onClick={handlePay} disabled={loading}>
-        {loading ? "Placing order..." : "Pay"}
-      </button>
-      <button onClick={goBack}>Back</button>
+      <div id="payment-buttons">
+        <button onClick={handlePay} disabled={loading}>
+          {loading ? "Placing order..." : "Pay"}
+        </button>
+        <button onClick={goBack}>Back</button>
+      </div>
     </div>
   );
 };
