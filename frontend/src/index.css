@@ -131,7 +131,7 @@ ul li .product-image {
 dialog[open] {
     position: fixed;
     inset: 0;
-    margin: 10% auto;
+    margin: 17% auto;
     width: min(500px, 90vw);
     max-height: 90vh;
     border-radius: 5px;
@@ -176,6 +176,10 @@ dialog img {
 
 .cart-item {
     padding: 5px;
+}
+
+#cart-total-price {
+    margin-left: 10px;
 }
 
 .item-info {
