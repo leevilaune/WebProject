@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState, useRef, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useCartContext } from "../contexts/CartContext";
@@ -15,6 +15,7 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const toggleRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const onDocClick = (e) => {
@@ -56,21 +57,17 @@ export default function Navbar() {
 
             <div className="nav-actions">
                 {!user && (
-                    <Link to="/login">
-                        <button>Login</button>
-                    </Link>
+                    <button onClick={() => navigate("/login")}>Login</button>
                 )}
 
                 {!user && (
-                    <Link to="/register">
-                        <button>Register</button>
-                    </Link>
+                    <button onClick={() => navigate("/register")}>
+                        Register
+                    </button>
                 )}
 
                 {user && (
-                    <Link to="/logout">
-                        <button>Logout</button>
-                    </Link>
+                    <button onClick={() => navigate("/logout")}>Logout</button>
                 )}
 
                 <button
