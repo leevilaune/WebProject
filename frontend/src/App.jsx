@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 
 import Navbar from "./components/Navbar";
@@ -11,12 +11,27 @@ import Orders from "./components/Orders";
 import AdminAddProduct from "./components/AdminAddProduct";
 import AdminEditProduct from "./components/AdminEditProduct";
 import AdminOrders from "./components/AdminOrders";
+import ShoppingCart from "./components/ShoppingCart";
+import { useCart } from "./hooks/useCart";
+import { CartContext } from "./contexts/CartContext";
 
 export default function App() {
-    return (
-        <BrowserRouter>
-            <AuthProvider>
+    // Use an inner component so we can call hooks like `useNavigate`
+    const InnerApp = () => {
+        const cartApi = useCart();
+        const navigate = useNavigate();
+        const goToPayment = () => navigate("/payment");
+
+        return (
+            <CartContext.Provider value={cartApi}>
                 <Navbar />
+                <ShoppingCart
+                    cart={cartApi.cart}
+                    showCart={cartApi.showCart}
+                    toggleCart={cartApi.toggleCart}
+                    goToPayment={goToPayment}
+                    removeFromCart={cartApi.removeFromCart}
+                />
 
                 <Routes>
                     <Route path="/menu" element={<Home />} />
@@ -43,6 +58,14 @@ export default function App() {
 
                     <Route path="*" element={<Home />} />
                 </Routes>
+            </CartContext.Provider>
+        );
+    };
+
+    return (
+        <BrowserRouter>
+            <AuthProvider>
+                <InnerApp />
             </AuthProvider>
         </BrowserRouter>
     );
