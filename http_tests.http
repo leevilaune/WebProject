@@ -1,8 +1,7 @@
 @baseUrl = https://test.onesnzeroes.dev/api/v1
 //@baseUrl = http://localhost:3000/api/v1
 //@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImlsbG9yZGVyIiwiZW1haWwiOiJlbWFpbEBwcm92aWRlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDE1OTkxOCwiZXhwIjoxNzY0MjQ2MzE4fQ.F4cgbpztBsNdEHzY-X5wUBmyPsX0GjN3595TyCfUlxk
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6InVzZXIzIiwiZW1haWwiOiJlbWFpbDNAcHJvdmlkZXIuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjUzNjUzNzQsImV4cCI6MTc2NTQ1MTc3NH0.SvO30bRB8FCt9Q_S2GAixHxnNNz9L-EiuxYsR0KPJ7w
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3LCJ1c2VybmFtZSI6InVzZXIzIiwiZW1haWwiOiJlbWFpbDNAcHJvdmlkZXIuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NjU0NzIzODAsImV4cCI6MTc2NTU1ODc4MH0.zMhfPSvvRLJoXtFJJBx3OQ6aHPoBFZqqkWlj4ZcplOg
 
 GET {{baseUrl}}/product/all
 Accept: application/json
@@ -28,8 +27,8 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "username": "aleksi",
-  "password": "aleksi"
+  "username": "user3",
+  "password": "salis"
 }
 
 ### Add a new product
