@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ModifyProductDialog from "./ModifyProductDialog";
 import getImageUrl from "../utils/getImageUrl";
 
-const ProductCard = ({ product, onDelete, onModify }) => {
+const AdminProductCard = ({ product, onDelete, onModify }) => {
     const [showModify, setShowModify] = useState(false);
 
     const allergens = Array.isArray(product.allergens) ? product.allergens : [];
@@ -74,4 +74,4 @@ const ProductCard = ({ product, onDelete, onModify }) => {
     );
 };
 
-export default ProductCard;
+export default AdminProductCard;

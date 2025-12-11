@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "./AdminProductCard";
+import AdminProductCard from "./AdminProductCard";
 import { API_BASE } from "../config/api";
 
 const AdminEditProduct = () => {
@@ -22,14 +22,24 @@ const AdminEditProduct = () => {
         }
     };
 
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
     const deleteProduct = async (productId) => {
-        if (!window.confirm(`delete product ${productId}?`)) return;
+        if (!window.confirm(`Delete product ${productId}?`)) return;
+
         try {
-            await fetch(`${API_BASE}/api/v1/product/${productId}`, {
+            const res = await fetch(`${API_BASE}/api/v1/product/${productId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });
-            fetchProducts();
+
+            if (!res.ok) throw new Error("Delete failed");
+
+            setProducts((prev) =>
+                prev.filter((p) => p.product_id !== productId)
+            );
         } catch (err) {
             console.error("delete failed:", err);
         }
@@ -37,7 +47,7 @@ const AdminEditProduct = () => {
 
     const modifyProduct = async (updatedProduct) => {
         try {
-            await fetch(
+            const res = await fetch(
                 `${API_BASE}/api/v1/product/${updatedProduct.product_id}`,
                 {
                     method: "PUT",
@@ -48,22 +58,27 @@ const AdminEditProduct = () => {
                     body: JSON.stringify(updatedProduct),
                 }
             );
-            fetchProducts();
+
+            if (!res.ok) throw new Error("modify failed");
+
+            setProducts((prev) =>
+                prev.map((p) =>
+                    p.product_id === updatedProduct.product_id
+                        ? { ...p, ...updatedProduct }
+                        : p
+                )
+            );
         } catch (err) {
             console.error("modify failed:", err);
         }
     };
-
-    useEffect(() => {
-        fetchProducts();
-    }, []);
 
     if (loading) return <p>Loading products...</p>;
 
     return (
         <div>
             {products.map((product) => (
-                <ProductCard
+                <AdminProductCard
                     key={product.product_id}
                     product={product}
                     onDelete={deleteProduct}
