@@ -21,7 +21,10 @@ const findAllUsers = async (req, res, next) => {
 };
 
 const getUserById = async (req, res, next) => {
-    if (req.user.role !== "admin" && req.user.user_id !== Number(req.params.id)) {
+    if (
+        req.user.role !== "admin" &&
+        req.user.user_id !== Number(req.params.id)
+    ) {
         const error = new Error("Forbidden");
         error.status = 403;
         next(error);
@@ -41,8 +44,10 @@ const getUserById = async (req, res, next) => {
 const addUser = async (req, res, next) => {
     console.log(req.body);
     try {
-        if(req.body.role){
-            const error = new Error("UNAUTHORIZED: including 'role' not permitted");
+        if (req.body.role) {
+            const error = new Error(
+                "UNAUTHORIZED: including 'role' not permitted"
+            );
             error.status = 401;
             next(error);
             return;
@@ -50,7 +55,7 @@ const addUser = async (req, res, next) => {
         req.body.role = "user";
         req.body.password = bcrypt.hashSync(req.body.password, 10);
         const createdUser = await user.create(req.body);
-        res.json({ message: "User created", id: createdUser.id });
+        res.json({ message: "User created", id: createdUser.user_id });
     } catch (err) {
         next(err);
     }
