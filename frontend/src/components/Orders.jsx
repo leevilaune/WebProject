@@ -81,7 +81,7 @@ const Orders = () => {
     if (orders.length === 0) return <p>no orders found.</p>;
 
     return (
-        <div>
+        <div id="my-orders-page">
             <h2>My Orders</h2>
             <div>
                 {userName && (
