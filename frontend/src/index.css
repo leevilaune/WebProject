@@ -176,6 +176,17 @@ dialog img {
 
 .cart-item {
     padding: 5px;
+    position: relative;
+}
+
+.cart-item .delete-item-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#cart-total-price {
+    margin-left: 10px;
 }
 
 .item-info {
