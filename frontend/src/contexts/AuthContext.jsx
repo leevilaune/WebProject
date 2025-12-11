@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
             const response = await loginRequest(credentials);
 
             localStorage.setItem("token", response.token);
+            localStorage.setItem("user_id", response.user?.user_id);
             setUser(response.user);
 
             if (response.user.role === "admin") {
