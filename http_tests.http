@@ -92,9 +92,9 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "illorder3",
-  "password": "fuckme?3",
-  "email": "email3@provider.com"
+  "username": "illorder7",
+  "password": "?6",
+  "email": "email3provider.com"
 }
 
 ### Post user
@@ -156,7 +156,7 @@ Authorization: Bearer {{token}}
   "price": 8.99,
   "delivery_address":"delivery address",
   "user_id": 6,
-  "product_ids": [5]
+  "product_ids": [2,5]
 }
 
 ### Put order
@@ -237,3 +237,16 @@ Content-Type: application/json
 ### Get options
 GET {{baseUrl}}/misc/option
 Content-Type: application/json
+
+### Post user
+POST {{baseUrl}}/user/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "testuser",
+  "password": "user",
+  "email": "user@email.com",
+  "phone_number": "+35812345678",
+  "address": "Street 12, Helsinki"
+}

@@ -142,7 +142,13 @@ const putStatus = async (req, res, next) => {
 };
 
 const postOrder = async (req, res, next) => {
-    const { delivery_address, price, user_id, product_ids } = req.body;
+    const { delivery_address, user_id, product_ids } = req.body;
+    const price = (await product.sum("price", {
+        where: {
+            product_id: product_ids,
+        },
+    })).toFixed(2);
+
     const timestamp = Date.now();
     try {
         const newOrder = await order.create({
