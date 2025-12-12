@@ -151,7 +151,7 @@ ul li .product-image {
 dialog[open] {
     position: fixed;
     inset: 0;
-    margin: 17% auto;
+    margin: 20% auto 0;
     width: min(500px, 90vw);
     max-height: 90vh;
     border-radius: 5px;
@@ -193,6 +193,7 @@ dialog img {
 .cart-item {
     padding: 5px;
     position: relative;
+    margin-left: 0;
 }
 
 .cart-items p {
@@ -328,15 +329,34 @@ dialog img {
     font-size: 20px;
 }
 
+#payment-view #payment-total {
+    margin-bottom: 10px;
+}
+
 /* -----------------------
 ----- my orders page -----
 -------------------------- */
 
-.my-orders {
+#my-orders-page {
     font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-.my-orders tr {
+#my-orders-page h2 + div {
+    border-bottom: 2px solid black;
+}
+
+.status-cap {
+    margin-top: 15px;
+}
+
+/* #my-orders-page img {
+    width: 100px;
+    height: 100px;
+} */
+
+/* .my-orders tr {
     border: 2px solid black;
     background-color: #888;
 }
@@ -347,7 +367,7 @@ dialog img {
     object-fit: cover;
     display: flex;
     object-position: center;
-}
+} */
 
 /*  */
 /*  */
