@@ -15,7 +15,13 @@ const Home = () => {
 
     // Use cart from context (provided by App)
     const { addToCart } = useCartContext() || {};
-    const { toggleCategory, toggleAllergen, filterProducts } = useFilter();
+    const {
+        selectedCategories,
+        selectedAllergens,
+        toggleCategory,
+        toggleAllergen,
+        filterProducts,
+    } = useFilter();
 
     // Cart toggle is available from context; no DOM events needed
 
@@ -81,6 +87,8 @@ const Home = () => {
                         toggleAllergens={toggleAllergens}
                         showAllergens={showAllergens}
                         toggleAllergen={toggleAllergen}
+                        selectedCategories={selectedCategories}
+                        selectedAllergens={selectedAllergens}
                         allergens={allergens}
                         categories={categories}
                     />

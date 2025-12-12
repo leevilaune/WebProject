@@ -1,0 +1,60 @@
+#filter-menu {
+    padding: 12px;
+}
+#filter-menu-categories ul,
+#allergens-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#filter-menu-categories li,
+#allergens-list li {
+    margin: 6px 0;
+}
+
+.filter-btn,
+.allergen-button {
+    background: #f3f4f6; /* light gray */
+    border: 1px solid #e5e7eb;
+    color: #111827;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.allergen-button:hover {
+    background: #eceff1;
+}
+
+/* Active state: slightly tinted and bolder */
+.filter-btn.active,
+.allergen-button.active {
+    background: #dbeafe; /* light blue tint */
+    border-color: #93c5fd;
+    color: #0b4a80;
+    font-weight: 600;
+}
+
+.allergen-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.allergen-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Make the main "Allergens" toggle visually distinct when open */
+#filter-menu-allergens > button {
+    margin-bottom: 8px;
+    background: transparent;
+    border: none;
+    color: #374151;
+    cursor: pointer;
+}
+#filter-menu-allergens > button:hover {
+    text-decoration: underline;
+}
