@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../hooks/useCart";
+import { useCartContext } from "../contexts/CartContext";
 import { useOrder } from "../hooks/useOrder";
 
 const PaymentView = () => {
-    const { cart, clearCart } = useCart();
+    const { cart, clearCart } = useCartContext();
     const { placeOrder, loading, error } = useOrder();
     const navigate = useNavigate();
 
