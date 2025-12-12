@@ -28,6 +28,14 @@ Admins can manage orders.
 
 Admins can view made orders.
 
+### Testing credentials
+
+testuser
+user
+
+admin
+admin
+
 ## Database schema
 
 ```mermaid
