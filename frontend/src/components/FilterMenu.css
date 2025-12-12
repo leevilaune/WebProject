@@ -14,7 +14,7 @@
 
 .filter-btn,
 .allergen-button {
-    background: #f3f4f6; /* light gray */
+    /* background: #f3f4f6; light gray */
     border: 1px solid #e5e7eb;
     color: #111827;
     padding: 6px 10px;
@@ -22,10 +22,10 @@
     cursor: pointer;
 }
 
-.filter-btn:hover,
+/* .filter-btn:hover,
 .allergen-button:hover {
     background: #eceff1;
-}
+} */
 
 /* Active state: slightly tinted and bolder */
 .filter-btn.active,
@@ -49,10 +49,10 @@
 
 /* Make the main "Allergens" toggle visually distinct when open */
 #filter-menu-allergens > button {
-    margin-bottom: 8px;
-    background: transparent;
-    border: none;
-    color: #374151;
+    margin: 8px 0;
+    /* background: transparent; */
+    /* border: none; */
+    /* color: #374151; */
     cursor: pointer;
 }
 #filter-menu-allergens > button:hover {
